@@ -1,0 +1,46 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^12.0.0",
+    "@react-navigation/bottom-tabs": "^6.3.1",
+    "@react-navigation/native": "^6.0.6",
+    "@react-navigation/native-stack": "^6.2.5",
+    "expo": "^45.0.0",
+    "expo-asset": "~8.4.5",
+    "expo-font": "~10.0.4",
+    "expo-status-bar": "~1.2.0",
+    "firebase": "^7.8.2",
+    "react": "17.0.1",
+    "react-burger-menu": "^3.0.8",
+    "react-dom": "17.0.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "react-native-dropdown-picker": "^5.4.2",
+    "react-native-element-dropdown": "^2.0.0",
+    "react-native-gesture-handler": "~2.1.0",
+    "react-native-paper": "^4.12.1",
+    "react-native-rapi-ui": "^0.2.1",
+    "react-native-safe-area-context": "3.3.2",
+    "react-native-screens": "~3.10.1",
+    "react-native-select-dropdown": "^2.0.3",
+    "react-native-web": "0.17.1",
+    "react-navigation": "^4.4.4",
+    "react-navigation-stack": "^2.10.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.9"
+  },
+  "private": true,
+  "name": "react_project_cs",
+  "description": "Template starter with React Navigation and Firebase auth using React Context",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
