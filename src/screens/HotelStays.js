@@ -17,15 +17,31 @@ import { Dropdown } from "react-native-element-dropdown";
 import { textShadowColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
+import {addDoc, collection, doc, setDoc} from "firebase/firestore";
+import { db } from "../firebase/config";
 
 
 export default function HotelScreen({ navigation }) {
   const [number, setNumber] = useState("");
   const [countries, setCountries] = useState([]);
   const [factor, setFactor] = useState([]);
+  const [country, setCountry] = useState([]);
   const [result, setResult] = useState([]);
   const calculation = (number * factor).toFixed(3);
+  const [emissions, setEmissions] = useState("");
 
+  function create() {
+    addDoc(collection(db, "Hotel Stays"), {
+      countryName: country,
+      noOfNights: number,
+      emissions: calculation,
+    }).then (() => {
+      console.log("Data submitted successfully");
+    }).catch((error) => {
+      console.log("Data submission failed");
+      console.log(error)
+    });;
+  }
 
 
   useEffect(() => {
@@ -164,7 +180,9 @@ export default function HotelScreen({ navigation }) {
 	  onSelect={(selectedItem, index) => {
 		  console.log(selectedItem, index);
       setFactor([]);
+      setCountry([]);
       setFactor(selectedItem.factor);
+      setCountry(selectedItem.name)
 	  }}
     defaultButtonText = {'Select country'}
 	  buttonTextAfterSelection={(selectedItem, index) => {
@@ -261,7 +279,7 @@ export default function HotelScreen({ navigation }) {
     fontSize: 18
   }}
   color = "mediumseagreen"
-  onPress={() => {navigation.navigate('Home', {item: calculation, otherParam: 'Hello'})}}/>
+  onPress={create}/>
 
 
 

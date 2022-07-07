@@ -8,7 +8,6 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
 
-
 import { useTheme, themeColor } from "react-native-rapi-ui";
 import NavBarIcons from "../utils/NavBarIcons";
 import NavBarText from "../utils/NavBarText";
@@ -38,6 +37,19 @@ import annualCommuting from "../annualCommuting";
 import annualBT from "../annualBT";
 
 // Better put your these secret keys in .env file
+const firebaseConfig = {
+  apiKey: "AIzaSyA_uODZYc72M_o3rNxCZiSrRXoIZQ2U1Os",
+  authDomain: "react-app-s3ce.firebaseapp.com",
+  projectId: "react-app-s3ce",
+  storageBucket: "react-app-s3ce.appspot.com",
+  messagingSenderId: "354675499105",
+  appId: "1:354675499105:web:4bd3ce22706c692a698a20",
+  measurementId: "G-L3KFYWS5D6"
+};
+
+if (getApps().length === 0) {
+  initializeApp(firebaseConfig);
+}
 
 const AuthStack = createNativeStackNavigator();
 
