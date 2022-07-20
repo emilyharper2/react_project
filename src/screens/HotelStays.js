@@ -31,10 +31,11 @@ export default function HotelScreen({ navigation }) {
   const [emissions, setEmissions] = useState("");
 
   function create() {
-    addDoc(collection(db, "Hotel Stays"), {
+    addDoc(collection(db,"Hotel Stays"), {
       countryName: country,
       noOfNights: number,
       emissions: calculation,
+      category: 'Hotel Stays'
     }).then (() => {
       console.log("Data submitted successfully");
     }).catch((error) => {

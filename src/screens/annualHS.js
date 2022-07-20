@@ -1,5 +1,5 @@
-import React from "react";
-import { View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View , FlatList, StyleSheet, Pressable, Image } from "react-native";
 import { getAuth, signOut } from "firebase/auth";
 import {
   Layout,
@@ -9,11 +9,48 @@ import {
   useTheme,
 } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
+import { db } from "../firebase/config";
+import {addDoc, collection, doc, getDocs, setDoc} from "firebase/firestore";
+import { getDoc, QueryDocumentSnapshot, QuerySnapshot, query } from "firebase/firestore";
+import {
+  ref,
+  onValue,
+  push,
+  update,
+  remove
+} from 'firebase/database';
+import {firebase} from "../firebase/FirebaseConfig";
+import { async } from "@firebase/util";
 
-export default function ({ navigation }) {
+
+export default function ({navigation}) {
+
   const { isDarkmode, setTheme } = useTheme();
+  const [users, setUsers] = useState([]);
 
-  return (
+useEffect(() => {
+emissionsQuery(); 
+}, []);
+
+    const emissionsQuery = async () => {
+      const emissionsRef = firebase.firestore().collection("Hotel Stays");
+      
+      emissionsRef.onSnapshot(
+              querySnapshot => {
+                  const users = []
+                  querySnapshot.forEach((doc)=> {
+                      const {countryName, emissions, noOfNights} = doc.data()
+                      users.push({
+                          id: doc.id,
+                          countryName,
+                          emissions,
+                          noOfNights, 
+                      })
+                  })
+                  setUsers(users);
+      })};
+
+return (
     <Layout>
       <TopNav
         //middleContent="Hotel Stays"
@@ -40,15 +77,97 @@ export default function ({ navigation }) {
           }
         }}
       />
-      <View
+
+<View 
         style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
+        
+        marginTop: 30,
+        marginHorizontal: '12%',
+        backgroundColor: 'steelblue',
+        borderRadius: 14,
+        width: 310,
+        height:75,
+        textAlign: 'left',
+        flexDirection: 'row',
+        shadowColor: '#171717',
+        shadowOffset: {width: 4, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+      }}
       >
-        {/* This text using ubuntu font */}
-        <Text fontWeight="bold">This is the Annual Hotel Stays</Text>
-      </View>
+          <Image
+            style={{
+              width: 60, 
+              height: 50, 
+              //borderRadius: 10,
+              //marginTop: 5,
+              marginLeft: 25,
+              alignSelf: "center",
+              marginBottom: 5,
+              
+            }}
+            source={require('../../assets/hotel.png')}
+          />
+          <Text
+          style={{
+            color: 'white',
+            alignSelf: "center",
+            fontSize: 32,
+            marginLeft: 35,
+            fontWeight: 'bold'
+          }}>
+          Hotel Stays 
+        </Text>
+    </View>
+        
+      <View style={{ marginTop: 30,}}>
+                    <FlatList 
+                        style ={{height:'100%', }}
+                        data={users}
+                        numColumns={1}
+                        renderItem={({item})=> (
+                            <Pressable
+                                style={styles.container}
+                            >
+                                <View style={styles.innerContainer}>
+                                    <Text style={{textAlign: 'justify', fontWeight: 'bold', fontSize: 20}}> 2022 {'\n'}</Text>
+                                    <Text> Country       Nights        kgCO2e        Dated {'\n'}</Text>
+                                    <Text style={styles.itemHeading}> {item.countryName}       {item.noOfNights}        {item.emissions}       {this.props.firebase.firestore.FieldValue.serverTimestamp()}</Text>
+                                </View>
+                            </Pressable>
+                        )}
+                    />
+                </View>
+
     </Layout>
+
 )};
+
+
+const styles = StyleSheet.create({
+  container: {
+      backgroundColor: 'steelblue',
+      padding: 15,
+      borderRadius: 15,
+      margin: 20,
+      marginHorizontal: 30,
+      height: 100
+  },
+
+  innerContainer: {
+      backgroundColor: 'antiquewhite',
+      alignItems: 'center',
+      flexDirection:'column',
+      borderRadius: 15,
+      padding: 10,
+
+  },
+
+  itemHeading: {
+      fontWeight: 'bold',
+  },
+
+  itemText: {
+      fontWeight:'300',
+  }
+})

@@ -13,20 +13,37 @@ import { Ionicons } from "@expo/vector-icons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SelectDropdown from 'react-native-select-dropdown';
 import { fontSize } from "react-native-rapi-ui/constants/typography";
+import {addDoc, collection, doc, setDoc} from "firebase/firestore";
+import { db } from "../firebase/config";
 
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   const [number, setNumber] = useState("");
-  const [countries, setCountries] = useState([]);
+  const [transportModes, setTransportModes] = useState([]);
+  const [transport, setTransport] = useState([]);
   const [factor, setFactor] = useState([]);
   const [result, setResult] = useState([]);
   const calculation = (number * factor).toFixed(3)
+  const [emissions, setEmissions] = useState("");
 
+  function create() {
+    addDoc(collection(db,"Commuting"), {
+      transportType: transport,
+      distanceTravelled: number,
+      emissions: calculation,
+      category: 'Commuting'
+    }).then (() => {
+      console.log("Data submitted successfully");
+    }).catch((error) => {
+      console.log("Data submission failed");
+      console.log(error)
+    });;
+  }
 
   useEffect(() => {
     setTimeout(() => {
-      setCountries ([
+      setTransportModes ([
         {name: 'Small Car (Diesel)', factor: 0.13758 },
         {name: 'Small Car (Petrol)', factor: 0.14946 },
         {name: 'Medium Car (Diesel)', factor: 0.16496},
@@ -123,11 +140,13 @@ export default function ({ navigation }) {
     </View>
     <View style={styles.dropdownsRow}>
   <SelectDropdown
-	  data={countries}
+	  data={transportModes}
 	  onSelect={(selectedItem, index) => {
 		  console.log(selectedItem, index);
       setFactor([]);
+      setTransport([]);
       setFactor(selectedItem.factor);
+      setTransport(selectedItem.name)
 	  }}
     defaultButtonText = {'Select Mode of Transport'}
 	  buttonTextAfterSelection={(selectedItem, index) => {
@@ -179,7 +198,7 @@ export default function ({ navigation }) {
         textShadowColor: '#444'
       }} 
       maxLength = {4}
-      onChangeText ={(nights) => setNumber(nights)} />
+      onChangeText ={(distance) => setNumber(distance)} />
   </View>
 
   <View style= {{
@@ -223,7 +242,7 @@ export default function ({ navigation }) {
     fontSize: 18
   }}
   color = "mediumseagreen"
-  onPress={() => Alert.alert("Emissions Added")}/>
+  onPress={create}/>
 
   </Layout>
   );
