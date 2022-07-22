@@ -22,10 +22,11 @@ import { db } from "../firebase/config";
 
 
 export default function HotelScreen({ navigation }) {
+  const { isDarkmode, setTheme } = useTheme();
   const [number, setNumber] = useState("");
   const [countries, setCountries] = useState([]);
-  const [factor, setFactor] = useState([]);
   const [country, setCountry] = useState([]);
+  const [factor, setFactor] = useState([]);
   const [result, setResult] = useState([]);
   const calculation = (number * factor).toFixed(3);
   const [emissions, setEmissions] = useState("");
@@ -104,8 +105,6 @@ export default function HotelScreen({ navigation }) {
     }, 1000);
   });
 
-
-  const { isDarkmode, setTheme } = useTheme();
   return (
     <Layout>
       <TopNav

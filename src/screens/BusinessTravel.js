@@ -24,13 +24,13 @@ export default function ({ navigation }) {
   const [factor, setFactor] = useState([]);
   const [result, setResult] = useState([]);
   const calculation = (number * factor).toFixed(3)
-  const [emissions, setEmissions] = useState("");
+  const [businessEmissions, setBusinessEmissions] = useState("");
 
   function create() {
     addDoc(collection(db,"Business Travel"), {
-      transportType: transport,
-      distanceTravelled: number,
-      emissions: calculation,
+      transportType2: transport,
+      distanceTravelled2: number,
+      businessEmissions: calculation,
       category: 'Business Travel'
     }).then (() => {
       console.log("Data submitted successfully");

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View , FlatList, StyleSheet, Pressable, Image } from "react-native";
+import React, { useEffect, useState, document , querySelector, getElementByID} from "react";
+import { View , FlatList, StyleSheet, Pressable, Image, ScrollView, RefreshControl} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
 import {
   Layout,
@@ -21,6 +21,9 @@ import {
 } from 'firebase/database';
 import {firebase} from "../firebase/FirebaseConfig";
 import { async } from "@firebase/util";
+import { DataTable } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
 
 
 export default function ({navigation}) {
@@ -37,18 +40,22 @@ emissionsQuery();
       
       emissionsRef.onSnapshot(
               querySnapshot => {
-                  const users = []
+                  let users = []
                   querySnapshot.forEach((doc)=> {
-                      const {countryName, emissions, noOfNights} = doc.data()
+                      let {countryName, emissions, noOfNights} = doc.data()
                       users.push({
                           id: doc.id,
                           countryName,
                           emissions,
                           noOfNights, 
-                      })
-                  })
+                      });
                   setUsers(users);
+                  console.log(users)
+                  });
+
       })};
+
+
 
 return (
     <Layout>
@@ -77,12 +84,13 @@ return (
           }
         }}
       />
+<ScrollView>
 
 <View 
         style={{
         
         marginTop: 30,
-        marginHorizontal: '12%',
+        marginHorizontal: '10%',
         backgroundColor: 'steelblue',
         borderRadius: 14,
         width: 310,
@@ -119,25 +127,34 @@ return (
           Hotel Stays 
         </Text>
     </View>
-        
-      <View style={{ marginTop: 30,}}>
-                    <FlatList 
-                        style ={{height:'100%', }}
-                        data={users}
-                        numColumns={1}
-                        renderItem={({item})=> (
-                            <Pressable
-                                style={styles.container}
-                            >
-                                <View style={styles.innerContainer}>
-                                    <Text style={{textAlign: 'justify', fontWeight: 'bold', fontSize: 20}}> 2022 {'\n'}</Text>
-                                    <Text> Country       Nights        kgCO2e        Dated {'\n'}</Text>
-                                    <Text style={styles.itemHeading}> {item.countryName}       {item.noOfNights}        {item.emissions}       {this.props.firebase.firestore.FieldValue.serverTimestamp()}</Text>
-                                </View>
-                            </Pressable>
-                        )}
-                    />
-                </View>
+
+  
+
+    <View style={styles.container}>
+      <View style = {styles.innerContainer}>
+
+    <DataTable >
+    <Text style={{alignSelf: "center", fontSize: 24, marginTop: 10, color: 'black', textDecorationLine: 'underline', fontWeight:'bold'}}> 2022 Recordings</Text>
+      <DataTable.Header>
+        <DataTable.Title style={{ marginLeft: 6 }} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Country</DataTable.Title>
+        <DataTable.Title style={{ marginLeft: 40}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Nights</DataTable.Title>
+        <DataTable.Title style={{ marginLeft: 20}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>kgCO2e</DataTable.Title>
+      </DataTable.Header>
+      {
+        users.map((item, key) => {
+          return (
+            <DataTable.Row 
+              key={item.id}>
+              <DataTable.Cell style={{  marginLeft: 6 }}>{item.countryName}</DataTable.Cell>
+              <DataTable.Cell style={{  marginLeft: 50 }}>{item.noOfNights}</DataTable.Cell>
+              <DataTable.Cell style={{  marginLeft: 5 }}>{item.emissions}</DataTable.Cell>
+              </DataTable.Row>
+          )})}
+      </DataTable>
+    </View>
+    </View>
+    </ScrollView>
+    
 
     </Layout>
 
@@ -147,19 +164,23 @@ return (
 const styles = StyleSheet.create({
   container: {
       backgroundColor: 'steelblue',
-      padding: 15,
+      padding: 5,
       borderRadius: 15,
       margin: 20,
-      marginHorizontal: 30,
-      height: 100
+      marginHorizontal: 25,
+      shadowColor: '#171717',
+        shadowOffset: {width: 4, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
   },
 
   innerContainer: {
-      backgroundColor: 'antiquewhite',
+      backgroundColor: 'ivory',
       alignItems: 'center',
       flexDirection:'column',
       borderRadius: 15,
       padding: 10,
+      margin: 8,
 
   },
 
@@ -169,5 +190,11 @@ const styles = StyleSheet.create({
 
   itemText: {
       fontWeight:'300',
-  }
+  },
+
+  row: {
+    flex: 1,
+    justifyContent: "space-around"
+}
 })
+
