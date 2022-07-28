@@ -30,6 +30,7 @@ export default function ({navigation}) {
 
   const { isDarkmode, setTheme } = useTheme();
   const [users, setUsers] = useState([]);
+  const [amountHS, setAmountHS] = useState([]);
 
 useEffect(() => {
 emissionsQuery(); 
@@ -41,6 +42,7 @@ emissionsQuery();
       emissionsRef.onSnapshot(
               querySnapshot => {
                   let users = []
+                  let emissionsAmount = 0 
                   querySnapshot.forEach((doc)=> {
                       let {countryName, emissions, noOfNights} = doc.data()
                       users.push({
@@ -50,7 +52,8 @@ emissionsQuery();
                           noOfNights, 
                       });
                   setUsers(users);
-                  console.log(users)
+                  emissionsAmount = emissionsAmount + parseInt(doc.data().emissions, 0)
+                  setAmountHS(emissionsAmount.toFixed(2));
                   });
 
       })};
@@ -134,7 +137,7 @@ return (
       <View style = {styles.innerContainer}>
 
     <DataTable >
-    <Text style={{alignSelf: "center", fontSize: 24, marginTop: 10, color: 'black', textDecorationLine: 'underline', fontWeight:'bold'}}> 2022 Recordings</Text>
+    <Text style={{alignSelf: "center", fontSize: 24, marginTop: 10, color: 'black',  fontWeight:'bold', marginBottom: 5}}> 2022 Recordings</Text>
       <DataTable.Header>
         <DataTable.Title style={{ marginLeft: 6 }} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Country</DataTable.Title>
         <DataTable.Title style={{ marginLeft: 40}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Nights</DataTable.Title>
@@ -148,10 +151,20 @@ return (
               <DataTable.Cell style={{  marginLeft: 6 }}>{item.countryName}</DataTable.Cell>
               <DataTable.Cell style={{  marginLeft: 50 }}>{item.noOfNights}</DataTable.Cell>
               <DataTable.Cell style={{  marginLeft: 5 }}>{item.emissions}</DataTable.Cell>
+              
               </DataTable.Row>
           )})}
       </DataTable>
     </View>
+    </View>
+
+    <View style={styles.container2}>
+      <View style={styles.innerContainer}>
+      <Text style={{
+        textAlign: 'center',
+        color: 'black'
+      }}>Current Total:   {amountHS} kgCO2e</Text>
+      </View>
     </View>
     </ScrollView>
     
@@ -180,7 +193,7 @@ const styles = StyleSheet.create({
       flexDirection:'column',
       borderRadius: 15,
       padding: 10,
-      margin: 8,
+      margin: 2,
 
   },
 
@@ -195,6 +208,20 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     justifyContent: "space-around"
-}
+},
+container2: {
+  backgroundColor: 'steelblue',
+  padding: 5,
+  borderRadius: 15,
+  margin: 20,
+  marginHorizontal: 25,
+  shadowColor: '#171717',
+    shadowOffset: {width: 4, height: 4},
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    marginTop: -5,
+    width: 260,
+    marginLeft: 100
+},
 })
 

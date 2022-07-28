@@ -31,7 +31,7 @@ export default function ({ navigation }) {
 
   async function register() {
     setLoading(true);
-    await createUserWithEmailAndPassword(auth, email, password).catch(function (
+    await createUserWithEmailAndPassword(auth, email, password, fullName).catch(function (
       error
     ) {
       // Handle Errors here.
@@ -153,6 +153,7 @@ export default function ({ navigation }) {
               text={loading ? "Loading" : "Create an account"}
               onPress={() => {
                 register();
+                navigation.navigate("Login");
               }}
               color = 'green'
               style={{

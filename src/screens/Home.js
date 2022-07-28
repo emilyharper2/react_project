@@ -1,5 +1,5 @@
 import { React, useState, useEffect} from "react";
-import { View, Linking, StyleSheet, FlatList, ScrollView, Pressable} from "react-native";
+import { View, Linking, StyleSheet, FlatList, ScrollView, Pressable, Image} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
 import {
   Layout,
@@ -120,7 +120,6 @@ commutingQuery();
   return (
     <Layout>
       <TopNav
-      middleContent="Newsfeed"
         leftContent={
           <Ionicons
             name={isDarkmode ? "sunny" : "moon"}
@@ -150,39 +149,55 @@ commutingQuery();
       />
     
     <ScrollView>
+
+    <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              resizeMode="contain"
+              style={{
+                marginTop: 30,
+                height: 135,
+                width: 230,
+                
+              }}
+              source={require("../../assets/newsplash.png")}
+            />
+          </View>
+
+      <View>
+      <Text style={{textAlign: 'center', fontSize: 28, marginTop: 10}}> Latest Emission Recordings</Text>
+      </View>
+
      <View style={{
       marginTop: 15,
       padding:10
      }}>
      {hsEmissions.map((hsEmission) => {
         return (
-          <View style={{backgroundColor: 'steelblue',padding: 18,
+          <View style={{backgroundColor: 'steelblue',padding: 15,
           borderRadius: 5,
           margin: 8,
           marginHorizontal: 10,
+          borderRadius: 5,
           shadowColor: '#171717',
           shadowOffset: {width: 4, height: 4},
           shadowOpacity: 0.5,
-          shadowRadius: 5,
-          }}>
-            <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}>{hsEmission.emissions} kgCO2e was added to the Hotel Stays sector. {'\n'}</Text>
+          shadowRadius: 5,}}>
+            
+            <Text style ={{color: 'white', alignItems:'center', textAlign:'center', marginHorizontal: 8}}>{hsEmission.emissions} kgCO2e was added to the Hotel Stays sector. {'\n'}</Text>
             <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}>Country: {hsEmission.countryName}     |    Nights: {hsEmission.noOfNights} nights</Text> 
 
-            <Pressable style={{marginTop: 10, marginBottom: -6, marginLeft: -4}}
-            onPress={() => setLiked((isLiked) => !isLiked)}>
-            <MaterialCommunityIcons
-            name={liked ? "thumb-up" : "thumb-up-outline"}
-            size={22}
-            color={liked ? "white" : "white"}
-            
-      />
-    </Pressable>
           </View>
         );
      })}
         {commutingEmissions.map((commutingEmission) => {
           return (
-            <View style={{backgroundColor: 'cornflowerblue',padding: 15,
+            <View 
+            style={{backgroundColor: 'cornflowerblue',padding: 15,
             borderRadius: 5,
             margin: 8,
             marginHorizontal: 10,
@@ -192,15 +207,7 @@ commutingQuery();
             shadowRadius: 5,}}>
               <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}>{commutingEmission.comEmissions} kgCO2e was added to the Commuting sector. {'\n'}</Text>
               <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}> Transport: {commutingEmission.transportType}    |   Distance: {commutingEmission.distanceTravelled} km</Text>
-              <Pressable style={{marginTop: 10, marginBottom: -6, marginLeft: -4}}
-            onPress={() => setLiked2((isLiked) => !isLiked)}>
-            <MaterialCommunityIcons
-            name={liked ? "thumb-up" : "thumb-up-outline"}
-            size={22}
-            color={liked ? "white" : "white"}
-            
-      />
-    </Pressable>
+              
             
             </View>
           );
@@ -217,15 +224,7 @@ commutingQuery();
             shadowRadius: 5,}}>
               <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}>{btEmission.businessEmissions} kgCO2e was added to the Commuting sector. {'\n'}</Text>
               <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}> Transport: {btEmission.transportType2}    |   Distance: {btEmission.distanceTravelled2} km</Text>
-              <Pressable style={{marginTop:6, marginLeft: -4}}
-            onPress={() => setLiked((isLiked) => !isLiked)}>
-            <MaterialCommunityIcons
-            name={liked ? "thumb-up" : "thumb-up-outline"}
-            size={22}
-            color={liked ? "white" : "white"}
-            
-      />
-    </Pressable>
+              
             
             </View>
           );

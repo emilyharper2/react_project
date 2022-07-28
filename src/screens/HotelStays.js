@@ -45,7 +45,6 @@ export default function HotelScreen({ navigation }) {
     });;
   }
 
-
   useEffect(() => {
     setTimeout(() => {
       setCountries ([

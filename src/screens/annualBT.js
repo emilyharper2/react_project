@@ -26,6 +26,7 @@ import { DataTable } from "react-native-paper";
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   const [travel, setTravel] = useState([]);
+  const [amountBT, setAmountBT] = useState([]);
 
 useEffect(() => {
 travelQuery(); 
@@ -36,7 +37,8 @@ travelQuery();
       
       travelRef.onSnapshot(
               querySnapshot => {
-                  const travel = []
+                  let travel = []
+                  let emissionsAmount = 0 
                   querySnapshot.forEach((doc)=> {
                       const {transportType2, distanceTravelled2, businessEmissions} = doc.data()
                       travel.push({
@@ -46,6 +48,9 @@ travelQuery();
                           businessEmissions 
                       });
                   setTravel(travel);
+                  emissionsAmount = emissionsAmount + parseFloat(doc.data().businessEmissions, 0)
+                  setAmountBT(emissionsAmount.toFixed(2));
+                  console.log(emissionsAmount)
                   });
 
       })};
@@ -99,7 +104,7 @@ travelQuery();
           <Image
             style={{
               width: 55, 
-              height: 58, 
+              height: 52, 
               //borderRadius: 10,
               //marginTop: 5,
               marginLeft: 22,
@@ -127,7 +132,7 @@ travelQuery();
       <View style = {styles.innerContainer}>
 
     <DataTable >
-    <Text style={{alignSelf: "center", fontSize: 24, marginTop: 10, color: 'black', textDecorationLine: 'underline', fontWeight:'bold'}}> 2022 Recordings</Text>
+    <Text style={{alignSelf: "center", fontSize: 24, marginTop: 10, color: 'black', fontWeight:'bold', marginBottom: 5}}> 2022 Recordings</Text>
       <DataTable.Header>
         <DataTable.Title style={{ marginLeft: 2 , marginRight: 18}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Transport</DataTable.Title>
         <DataTable.Title style={{ marginLeft: 35, marginRight: 36}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Distance</DataTable.Title>
@@ -146,6 +151,16 @@ travelQuery();
       </DataTable>
     </View>
     </View>
+
+    <View style={styles.container2}>
+      <View style={styles.innerContainer}>
+      <Text style={{
+        textAlign: 'center',
+        color: 'black'
+      }}>Current Total:   {amountBT} kgCO2e</Text>
+      </View>
+    </View>
+
     </ScrollView>
     
 
@@ -172,8 +187,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flexDirection:'column',
       borderRadius: 15,
-      padding: 5,
-      margin: 4,
+      padding: 10,
+      margin: 2,
 
   },
 
@@ -188,5 +203,19 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     justifyContent: "space-around"
-}
+}, 
+container2: {
+  backgroundColor: 'lightskyblue',
+  padding: 5,
+  borderRadius: 15,
+  margin: 20,
+  marginHorizontal: 25,
+  shadowColor: '#171717',
+    shadowOffset: {width: 4, height: 4},
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    marginTop: -5,
+    width: 260,
+    marginLeft: 100
+},
 });
