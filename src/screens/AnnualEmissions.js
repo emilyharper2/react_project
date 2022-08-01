@@ -17,6 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
+  const auth = getAuth();
   return (
     <Layout>
       <TopNav

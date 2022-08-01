@@ -38,6 +38,7 @@ export default function ({ navigation }) {
       console.log("Data submission failed");
       console.log(error)
     });;
+    alert('Emissions Added!');
   }
 
   useEffect(() => {

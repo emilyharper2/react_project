@@ -43,6 +43,7 @@ export default function HotelScreen({ navigation }) {
       console.log("Data submission failed");
       console.log(error)
     });;
+    alert('Emissions Added!');
   }
 
   useEffect(() => {

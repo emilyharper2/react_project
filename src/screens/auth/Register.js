@@ -31,13 +31,12 @@ export default function ({ navigation }) {
 
   async function register() {
     setLoading(true);
-    await createUserWithEmailAndPassword(auth, email, password, fullName).catch(function (
+    await createUserWithEmailAndPassword(auth, email, password).catch(function (
       error
     ) {
-      // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // ...
+      
       setLoading(false);
       alert(errorMessage);
     });
@@ -97,7 +96,7 @@ export default function ({ navigation }) {
               autoCapitalize="none"
               autoCompleteType="off"
               autoCorrect={false}
-              keyboardType="name"
+              keyboardType="default"
               onChangeText={(text) => setName(text)}
             />
 
@@ -109,7 +108,7 @@ export default function ({ navigation }) {
               autoCapitalize="none"
               autoCompleteType="off"
               autoCorrect={false}
-              keyboardType="companyName"
+              keyboardType="default"
               onChangeText={(text) => setCompanyName(text)}
             />
             
@@ -153,7 +152,6 @@ export default function ({ navigation }) {
               text={loading ? "Loading" : "Create an account"}
               onPress={() => {
                 register();
-                navigation.navigate("Login");
               }}
               color = 'green'
               style={{
