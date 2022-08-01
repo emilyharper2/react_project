@@ -23,6 +23,7 @@ import { fontSize } from "react-native-rapi-ui/constants/typography";
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
+  const auth = getAuth();
   return (
     <Layout>
       <TopNav
