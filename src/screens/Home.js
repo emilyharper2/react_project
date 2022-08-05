@@ -43,7 +43,6 @@ export default function ({ route, navigation }) {
   const [commutingEmissions, setCommutingEmissions] = useState([]);
   const [btEmissions, setBtEmissions] = useState([]);
 
-
   useEffect(() => {
   hsEmissionsQuery(); 
   }, []);
@@ -222,7 +221,7 @@ commutingQuery();
             shadowOffset: {width: 4, height: 4},
             shadowOpacity: 0.5,
             shadowRadius: 5,}}>
-              <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}>{btEmission.businessEmissions} kgCO2e was added to the Commuting sector. {'\n'}</Text>
+              <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}>{btEmission.businessEmissions} kgCO2e was added to the Business Travel sector. {'\n'}</Text>
               <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}> Transport: {btEmission.transportType2}    |   Distance: {btEmission.distanceTravelled2} km</Text>
               
             

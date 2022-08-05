@@ -29,6 +29,7 @@ export default function HotelScreen({ navigation }) {
   const [factor, setFactor] = useState([]);
   const [result, setResult] = useState([]);
   const calculation = (number * factor).toFixed(3);
+  module.exports = calculation;
   const [emissions, setEmissions] = useState("");
 
   function create() {
@@ -186,13 +187,9 @@ export default function HotelScreen({ navigation }) {
 	  }}
     defaultButtonText = {'Select country'}
 	  buttonTextAfterSelection={(selectedItem, index) => {
-		// text represented after item is selected
-		// if data array is an array of objects then return selectedItem.property to render after item is selected
 		  return selectedItem.name 
 	  }}
 	  rowTextForSelection={(item, index) => {
-      // text represented for each item in dropdown
-      // if data array is an array of objects then return item.property to represent item in dropdown
         return item.name
       }}
       buttonStyle ={styles.dropdown1BtnStyle}
@@ -354,3 +351,4 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.35
   },
 });
+

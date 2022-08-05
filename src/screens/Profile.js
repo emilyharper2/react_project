@@ -157,14 +157,14 @@ const barData = {
         name: 'Hotel Stays',
         emissions: amountHS,
         color: 'steelblue',
-        legendFontColor: 'black',
+        legendFontColor: isDarkmode === true ? 'white' : 'black',
         legendFontSize: 12,
       },
       {
         name: 'Commuting',
         emissions: amountCom,
         color: 'cornflowerblue',
-        legendFontColor: 'black',
+        legendFontColor: isDarkmode === true ? 'white' : 'black',
         legendFontSize: 12,
       },
       {
@@ -172,7 +172,7 @@ const barData = {
         emissions: amountBT,
         color: 'lightskyblue',
         legendFontSize: 12,
-        legendFontColor: 'black',
+        legendFontColor: isDarkmode === true ? 'white' : 'black',
       },
     ]
   
@@ -283,7 +283,7 @@ const barData = {
         backgroundGradientToOpacity: 0,
         barPercentage: 1.3,
         color: (opacity = 1) => `rgba(1, 122, 205, 1)`,
-        labelColor: (opacity = 1) => `rgba(0, 0, 0, 1)`,
+        labelColor: (opacity = 1) => isDarkmode === true ? 'white' : 'black',
         style: {
           borderRadius: 16
         }

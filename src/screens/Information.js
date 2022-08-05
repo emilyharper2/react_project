@@ -64,7 +64,7 @@ export default function ({ navigation }) {
           </View>
 
       <View>
-      <Text style={{textAlign: 'center', fontSize: 28, marginTop: 10}}> Curoscope FAQs</Text>
+      <Text style={{textAlign: 'center', fontSize: 28, marginTop: 10, color: isDarkmode === true ? 'white' : 'black'}}> Curoscope FAQs</Text>
       </View>
       <View
         style={{ 
