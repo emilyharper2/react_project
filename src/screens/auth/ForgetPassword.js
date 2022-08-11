@@ -48,16 +48,17 @@ export default function ({ navigation }) {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: isDarkmode ? "#17171E" : themeColor.white100,
+              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light,
             }}
           >
             <Image
               resizeMode="contain"
               style={{
-                height: 220,
-                width: 220,
+                marginTop: 60,
+                height: 135,
+                width: 230,
               }}
-              source={require("../../../assets/forget.png")}
+              source= {require("../../../assets/newlogoblack.png")}
             />
           </View>
           <View
@@ -65,7 +66,7 @@ export default function ({ navigation }) {
               flex: 3,
               paddingHorizontal: 20,
               paddingBottom: 20,
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.white,
+              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light,
             }}
           >
             <Text
@@ -94,6 +95,7 @@ export default function ({ navigation }) {
               onPress={() => {
                 forget();
               }}
+              color = 'steelblue'
               style={{
                 marginTop: 20,
               }}

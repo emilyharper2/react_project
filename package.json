@@ -8,6 +8,9 @@
     "eject": "expo eject",
     "test": "jest"
   },
+  "jest": {
+    "preset": "react-native"
+  },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@react-native-community/art": "^1.2.0",

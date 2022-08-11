@@ -120,7 +120,7 @@ export default function ({ navigation }) {
               autoCapitalize="none"
               autoCompleteType="off"
               autoCorrect={false}
-              keyboardType="email-address"
+              keyboardType="default"
               onChangeText={(text) => setEmail(text)}
             />
 
@@ -132,6 +132,7 @@ export default function ({ navigation }) {
               autoCapitalize="none"
               autoCompleteType="off"
               autoCorrect={false}
+              keyboardType="default"
               secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
             />
@@ -144,6 +145,7 @@ export default function ({ navigation }) {
               autoCapitalize="none"
               autoCompleteType="off"
               autoCorrect={false}
+              keyboardType="default"
               secureTextEntry={true}
               onChangeText={(text) => setConfirmPassword(text)}
             />
