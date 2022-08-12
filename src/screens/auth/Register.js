@@ -160,6 +160,7 @@ export default function ({ navigation }) {
                 marginTop: 20,
               }}
               disabled={loading}
+              testID = "registerButton"
             />
 
             <View

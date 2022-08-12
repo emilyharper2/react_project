@@ -60,7 +60,7 @@ export default function ({ navigation }) {
           alignSelf: 'center',
           marginTop: 50
         }}
-        
+        testID = "hotelButtonFolder"
         source = {require("../../assets/folderbold3.png")}/>
       </TouchableOpacity>
 

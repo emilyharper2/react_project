@@ -108,7 +108,6 @@ export default function ({ navigation }) {
           borderRadius: 5,
           borderWidth: 1.5,
           borderColor: 'steelblue',
-          
         }}>
             <Text style={{fontWeight: 'bold', color: 'black', fontSize: 20, textAlign: 'center', marginTop:10}}>How are Scope 3 carbon emissions calculated? </Text>
             <Text style={{textAlign: 'justify', marginHorizontal:20, color: 'black', fontSize: 16, marginTop: 10}}>Every year, the UK govnerment website uploads a range of Scope 1, 2 and 3 carbon emission conversion factors. These factors are then built into the software and selected based on the information provided by the user. For example, if The Netherlands is selected as the country in which an employee has stayed in a hotel and the user inputs a value of 4 nights, the calculation is as follows:

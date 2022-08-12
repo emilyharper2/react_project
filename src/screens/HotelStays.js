@@ -29,7 +29,6 @@ export default function HotelScreen({ navigation }) {
   const [factor, setFactor] = useState([]);
   const [result, setResult] = useState([]);
   const calculation = (number * factor).toFixed(3);
-  module.exports = calculation;
   const [emissions, setEmissions] = useState("");
 
   function create() {

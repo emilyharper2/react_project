@@ -59,6 +59,7 @@ export default function ({ navigation }) {
       <TouchableOpacity
         onPress={() => navigation.navigate("HotelStays")}
         style = {styles.roundButton2}
+        testID = "hotelButton"
         >
       <Image
             style={{
