@@ -1,3 +1,4 @@
+// Import relevant libraries and components.
 import React, { useState } from "react";
 import {
   ScrollView,
@@ -20,6 +21,7 @@ import {
 
 
 export default function ({ navigation }) {
+  // constant variables for this page.
   const { isDarkmode, setTheme } = useTheme();
   const auth = getAuth();
   const [email, setEmail] = useState("");
@@ -29,11 +31,13 @@ export default function ({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Setting up the register function to store the email and password of the user.
   async function register() {
     setLoading(true);
     await createUserWithEmailAndPassword(auth, email, password).catch(function (
       error
     ) {
+      // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
       
@@ -41,6 +45,21 @@ export default function ({ navigation }) {
       alert(errorMessage);
     });
   }
+
+  /*
+  * The Curoscope application is added to the top of the page.
+  * 
+  * Text Input boxes are created, allowing the user to enter their name, company name, 
+  * email, password and confirmation of password. Relevant placeholders and 
+  * keyboard types are provided.
+  *  
+  * A register button is added to then allow the user to register once relevant details
+  * are entered. This stores the users email and password. 
+  * 
+  * A button to navigate the Login page if an account already exists is created. 
+  * 
+  * The dark mode feature is also provided on this page. 
+  */
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>

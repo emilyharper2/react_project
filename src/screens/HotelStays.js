@@ -1,6 +1,5 @@
 import React, { useState,  useEffect, useRef, Component  }  from "react";
 import { View, SafeAreaView, StatusBar, Dimensions, StyleSheet, ScrollView, Image, TextInput, Picker, Alert} from "react-native";
-const {width} = Dimensions.get('window');
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SelectDropdown from 'react-native-select-dropdown'
 import {

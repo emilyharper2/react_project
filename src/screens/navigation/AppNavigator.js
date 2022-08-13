@@ -1,3 +1,4 @@
+// Import relevant libraries and components.
 import React, { useContext } from "react";
 import { initializeApp, getApps } from "firebase/app";
 import { NavigationContainer } from "@react-navigation/native";
@@ -6,8 +7,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-
-
+import { AuthContext } from "../../provider/AuthProvider";
+import { Settings } from "react-native-web";
+import { Ionicons } from "@expo/vector-icons";
 import { useTheme, themeColor } from "react-native-rapi-ui";
 import NavBarIcons from "../utils/NavBarIcons";
 import NavBarText from "../utils/NavBarText";
@@ -23,20 +25,17 @@ import AnnualEmissions from "../AnnualEmissions";
 import AddEmissions from "../AddEmissions";
 import Commuting from "../Commuting";
 import BusinessTravel from "../BusinessTravel";
+import annualHS from "../annualHS";
+import annualCommuting from "../annualCommuting";
+import annualBT from "../annualBT";
 
 // Auth screens
 import Login from "../auth/Login"
 import Register from "../auth/Register";
 import ForgetPassword from "../auth/ForgetPassword";
 import Loading from "../utils/Loading";
-import { AuthContext } from "../../provider/AuthProvider";
-import { Settings } from "react-native-web";
-import { Ionicons } from "@expo/vector-icons";
-import annualHS from "../annualHS";
-import annualCommuting from "../annualCommuting";
-import annualBT from "../annualBT";
 
-// Better put your these secret keys in .env file
+
 const firebaseConfig = {
   apiKey: "AIzaSyA_uODZYc72M_o3rNxCZiSrRXoIZQ2U1Os",
   authDomain: "react-app-s3ce.firebaseapp.com",
@@ -51,6 +50,7 @@ if (getApps().length === 0) {
   initializeApp(firebaseConfig);
 }
 
+// Creating the AuthStack for the application.
 const AuthStack = createNativeStackNavigator();
 
 const Auth = () => {
@@ -67,6 +67,11 @@ const Auth = () => {
   );
 };
 
+/*
+* Creating the MainStack for the application which includes all pages accessed
+* from the bottom navigation bar, the MainTabs const. 
+*/ 
+
 const MainStack = createNativeStackNavigator();
 
 const Main = () => {
@@ -82,6 +87,10 @@ const Main = () => {
   );
 };
 
+/*
+* Creating a stack to hold all pages on the bottom navigation bar as well as 
+* designing each button and applying a relevant icon. 
+*/
 
 const Tabs = createBottomTabNavigator();
 const MainTabs = () => {
@@ -162,6 +171,11 @@ const MainTabs = () => {
   );
 };
 
+/*
+* Creating the AddStack which includes the pages navigated from
+*'Add Emissions' page accessed from the bottom navigation bar. 
+*/ 
+
 const AddStack = createNativeStackNavigator();
 
 const Add = () => {
@@ -179,6 +193,11 @@ const Add = () => {
   );
 };
 
+/*
+* Creating the AnnualStack which includes the pages navigated from
+*'Overview' page accessed from the bottom navigation bar. 
+*/ 
+
 const AnnualStack = createNativeStackNavigator();
 
 const Annual = () => {
@@ -195,6 +214,11 @@ const Annual = () => {
     </AnnualStack.Navigator>
   );
 };
+
+/*
+* Navigating the user to the Homepage of the appliation if 
+* authorised. 
+*/
 
 export default () => {
   const auth = useContext(AuthContext);

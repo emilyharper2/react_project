@@ -1,3 +1,4 @@
+// Import relevant libraries and components.
 import React, { useState } from "react";
 import {
   ScrollView,
@@ -16,12 +17,15 @@ import {
   themeColor,
 } from "react-native-rapi-ui";
 
+
 export default function ({ navigation }) {
+  // constant variables for this page.
   const { isDarkmode, setTheme } = useTheme();
   const auth = getAuth();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Setting up the function to send a reset password email.
   async function forget() {
     setLoading(true);
     await sendPasswordResetEmail(auth, email)
@@ -35,6 +39,14 @@ export default function ({ navigation }) {
         alert(error);
       });
   }
+  
+ /*
+  * Constructing the layout of the application, including a ScrollView, dark mode feature
+  * and the Curoscope logo.
+  * 
+  * A button to return to the Login screen is also created.
+  */ 
+ 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <Layout>

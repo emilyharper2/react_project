@@ -1,6 +1,8 @@
+// Import the functioning needed from SDKs.
 import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
 
+// Web app's Firebase configuration.
 const firebaseConfig = {
     apiKey: "AIzaSyA_uODZYc72M_o3rNxCZiSrRXoIZQ2U1Os",
     authDomain: "react-app-s3ce.firebaseapp.com",
@@ -11,5 +13,6 @@ const firebaseConfig = {
     measurementId: "G-L3KFYWS5D6"
 };
 
+// Initializing Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
