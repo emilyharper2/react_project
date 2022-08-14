@@ -14,7 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { IconButton, MD3Colors } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-/*
+/** 
 * This page acts as the main 'Annual Emissions' page and presents 3 buttons
 * to access the 3 different Scope 3 category pages in which emissions the 
 * annual emissions are displayed 
@@ -64,7 +64,7 @@ export default function ({ navigation }) {
                 signOut(auth);
               }}
         />
-        
+
       <TouchableOpacity style = {{
         shadowColor: '#303838',
         shadowOffset: { width: 0, height: 5 },
@@ -113,7 +113,6 @@ export default function ({ navigation }) {
         }}
         source = {require("../../assets/folderbold.png")}/>
       </TouchableOpacity>
-
     </Layout>
   );
 }

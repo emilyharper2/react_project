@@ -25,13 +25,12 @@ import {
 import { EvilIcons, Ionicons } from "@expo/vector-icons";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Dropdown } from "react-native-element-dropdown";
-import { textShadowColor } from "react-native/Libraries/Components/View/ReactNativeStyleAttributes";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useNavigation } from '@react-navigation/native';
 import {addDoc, collection, doc, setDoc} from "firebase/firestore";
 import { db } from "../firebase/config";
 
-/*
+/**
 * This page acts as the individual add emissions page for the 'Hotel Stays'
 * Scope 3 category and displays a dropdown menu allowing the user to select
 * a country and an input box allowing the user to input the number of nights
@@ -43,7 +42,7 @@ import { db } from "../firebase/config";
 */
 
 export default function HotelScreen({ navigation }) {
-  /*
+  /**
   * Constant variable for this page to allow for dark mode feature.
   *
   * As well as this, constant variable to store number of nights,
@@ -60,7 +59,7 @@ export default function HotelScreen({ navigation }) {
   const calculation = (number * factor).toFixed(3);
   const [emissions, setEmissions] = useState("");
 
-  /*
+  /**
   * Creating the 'Hotel Stays' collection and storing the country
   * selected, the number of nights inputted and the resultant emissions
   * from the calculation.
@@ -83,7 +82,7 @@ export default function HotelScreen({ navigation }) {
     alert('Emissions Added!');
   }
 
-  /*
+  /** 
   * Listing the countries for the dropdown menu along with their
   * corresponding conversion factors that will be multiplied by the number
   * of nights stayed.
@@ -148,18 +147,19 @@ export default function HotelScreen({ navigation }) {
     }, 1000);
   });
 
-  /*
+  /**
   * Line 165-231 represents the layout of the page, including the icon for 
-  * activating the dark/light mode in the top-right-hand corner and a 'return' icon
-  * in the top-left-hand corner to return to the 'main' add emissions page.
+  * activating the dark/light mode in the top-right-hand corner and a 'return' 
+  * icon in the top-left-hand corner to return to the 'main' add emissions page.
   * 
   * The 'Hotel Stays' heading is added, with an image representing the title. 
   * 
-  * The dropdown menu is then created, storing the selected value. An input box is added
-  * to allow the user to enter a number of nights. The cloud image is added and 
-  * calculated emissions are displayed on top of it. 
+  * The dropdown menu is then created, storing the selected value. An input box 
+  * is added to allow the user to enter a number of nights. The cloud image is 
+  * added and calculated emissions are displayed on top of it. 
   * 
-  * The 'Add Emissions' button is created, activating the 'create' function once pressed. 
+  * The 'Add Emissions' button is created, activating the 'create' function once
+  * pressed. 
   */
 
   return (
@@ -195,7 +195,7 @@ export default function HotelScreen({ navigation }) {
         backgroundColor: 'steelblue',
         borderRadius: 14,
         width: 310,
-        height:75,
+        height: 75,
         textAlign: 'left',
         flexDirection: 'row',
         shadowColor: '#171717',
@@ -211,7 +211,6 @@ export default function HotelScreen({ navigation }) {
               marginLeft: 25,
               alignSelf: "center",
               marginBottom: 5,
-              
             }}
             source={require('../../assets/hotel.png')}
           />
@@ -228,7 +227,7 @@ export default function HotelScreen({ navigation }) {
     </View>
   <View style={styles.dropdownsRow}>
   <SelectDropdown
-    marginLeft = '20px'
+    marginLeft= '20px'
     // inserting the countries as the dropdown data.
 	  data={countries}
 	  onSelect={(selectedItem, index) => {
@@ -237,7 +236,7 @@ export default function HotelScreen({ navigation }) {
       setFactor([]);
       setCountry([]);
       setFactor(selectedItem.factor);
-      setCountry(selectedItem.name)
+      setCountry(selectedItem.name);
 	  }}
     defaultButtonText = {'Select country'}
 	  buttonTextAfterSelection={(selectedItem, index) => {
@@ -251,7 +250,10 @@ export default function HotelScreen({ navigation }) {
       buttonStyle ={styles.dropdown1BtnStyle}
       buttonTextStyle = {styles.dropdown1BtnTxtStyle}
       renderDropdownIcon={isOpened => {
-        return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+        return <FontAwesome 
+        name={isOpened ? 'chevron-up' : 'chevron-down'} 
+        color={'#444'} 
+        size={18} />;
       }}
       dropdownIconPosition={'right'}
       dropdownStyle= {styles.dropdown1DropdownStyle}
@@ -281,7 +283,7 @@ export default function HotelScreen({ navigation }) {
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-        marginLeft:260,
+        marginLeft: 260,
         fontSize: 18,
         textShadowColor: '#444'
       }} 
@@ -354,7 +356,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: '10%',
   },
-  dropdownsRow: {flexDirection: 'row', width: '90%', paddingHorizontal: '5%', marginTop: 40, marginLeft: 22},
+  dropdownsRow: {
+    flexDirection: 'row', 
+    width: '90%', 
+    paddingHorizontal: '5%', 
+    marginTop: 40, 
+    marginLeft: 22
+  },
   dropdown1BtnStyle: {
     flex: 1,
     height: 50,
@@ -365,7 +373,10 @@ const styles = StyleSheet.create({
   },
   dropdown1BtnTxtStyle: {color: '#444', textAlign: 'left'},
   dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
-  dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
+  dropdown1RowStyle: {
+    backgroundColor: '#EFEFEF', 
+    borderBottomColor: '#C5C5C5'
+  },
   dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
   divider: {width: 12}
 });

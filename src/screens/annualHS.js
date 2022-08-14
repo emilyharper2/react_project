@@ -1,6 +1,14 @@
 // Import relevant modules and functions.
-import React, { useEffect, useState, document , querySelector, getElementByID} from "react";
-import { View , FlatList, StyleSheet, Pressable, Image, ScrollView, RefreshControl} from "react-native";
+import { React,  useEffect, useState } from "react";
+import { 
+  View, 
+  FlatList, 
+  StyleSheet, 
+  Pressable, 
+  Image, 
+  ScrollView, 
+  RefreshControl
+} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
 import {
   Layout,
@@ -11,8 +19,12 @@ import {
 } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
 import { db } from "../firebase/config";
-import {addDoc, collection, doc, getDocs, setDoc} from "firebase/firestore";
-import { getDoc, QueryDocumentSnapshot, QuerySnapshot, query } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { 
+  getDoc, 
+  QueryDocumentSnapshot, 
+  QuerySnapshot, 
+  query } from "firebase/firestore";
 import {
   ref,
   onValue,
@@ -20,12 +32,12 @@ import {
   update,
   remove
 } from 'firebase/database';
-import {firebase} from "../firebase/FirebaseConfig";
+import { firebase } from "../firebase/FirebaseConfig";
 import { async } from "@firebase/util";
 import { DataTable } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-/*
+/**
 * This page acts as the individual annual emissions page for the 'Hotel Stays'
 * Scope 3 category and shows the two user inputs (country and number of nights) 
 * as well as the resultant emissions from the calculation. 
@@ -36,7 +48,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 export default function ({navigation}) {
-  /*
+  /**
   * Constant variables for this page to allow for dark mode feature,
   * the collection of Hotel Stays recordings and the current amount 
   * of emissions due to the Hotel Stays recordings. 
@@ -45,14 +57,14 @@ export default function ({navigation}) {
   const [hotelStays, setHotelStays] = useState([]);
   const [amountHS, setAmountHS] = useState([]);
 
-  /*
+  /**
   * Code to call and store all recordings in the 'Hotel Stays' collection into 
   * the 'setHotelStays' variable. The country, number of nights and resultant 
   * emissions are all stored. 
   * 
   * The 'emissionsAmount' variable represents the calculation to count all resultant
-  * emissions from all recordings in the 'Hotel Stays' collection and is stored in the 
-  * 'setAmountHS' variable. 
+  * emissions from all recordings in the 'Hotel Stays' collection and is stored
+  * in the 'setAmountHS' variable. 
   */
 
 useEffect(() => {
@@ -75,31 +87,32 @@ emissionsQuery();
                           noOfNights, 
                       });
                   setHotelStays(hotelStays);
-                  emissionsAmount = emissionsAmount + parseInt(doc.data().emissions, 0)
+                  emissionsAmount = emissionsAmount 
+                  + parseInt(doc.data().emissions, 0)
                   setAmountHS(emissionsAmount.toFixed(2));
                   });
 
       })};
 
- /*
-  * Line 99-126 represents the layout of the page, including the icon for 
-  * activating the dark/light mode in the top-right-hand corner and a 'return' icon
-  * in the top-left-hand corner to return to the 'main' annual emissions page.
+ /**
+  * Line 113-180 represents the layout of the page, including the icon for 
+  * activating the dark/light mode in the top-right-hand corner and a 'return' 
+  * icon in the top-left-hand corner to return to the 'main' annual emissions 
+  * page.
   * 
   * The 'Hotel Stays' heading is added, with an image representing the title. 
   * 
   * A Data Table is then created, holding the country user input in the 
-  * first cell, the number of nights user input in the second cell and the resultant 
-  * emissions in the third.
+  * first cell, the number of nights user input in the second cell and the 
+  * resultant emissions in the third.
   * 
-  * A View holding the current total of resultant emissions is then added underneath
-  * the DataTable. 
+  * A View holding the current total of resultant emissions is then added 
+  * underneath the DataTable. 
   */
 
 return (
     <Layout>
       <TopNav
-        //middleContent="Hotel Stays"
         leftContent={
           <Ionicons
             name="chevron-back"
@@ -127,13 +140,12 @@ return (
 
 <View 
         style={{
-        
         marginTop: 30,
         marginHorizontal: '10%',
         backgroundColor: 'steelblue',
         borderRadius: 14,
         width: 310,
-        height:75,
+        height: 75,
         textAlign: 'left',
         flexDirection: 'row',
         shadowColor: '#171717',
@@ -149,7 +161,6 @@ return (
               marginLeft: 25,
               alignSelf: "center",
               marginBottom: 5,
-              
             }}
             source={require('../../assets/hotel.png')}
           />
@@ -168,20 +179,54 @@ return (
     <View style={styles.container}>
       <View style = {styles.innerContainer}>
     <DataTable >
-    <Text style={{alignSelf: "center", fontSize: 24, marginTop: 10, color: 'black',  fontWeight:'bold', marginBottom: 5}}> 2022 Recordings</Text>
+    <Text style={{
+      alignSelf: "center", 
+      fontSize: 24, 
+      marginTop: 10, 
+      color: 'black',  
+      fontWeight:'bold', 
+      marginBottom: 5
+      }}>2022 Recordings</Text>
       <DataTable.Header>
-        <DataTable.Title style={{ marginLeft: 6 }} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Country</DataTable.Title>
-        <DataTable.Title style={{ marginLeft: 40}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Nights</DataTable.Title>
-        <DataTable.Title style={{ marginLeft: 20}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>kgCO2e</DataTable.Title>
+        <DataTable.Title style={{ 
+          marginLeft: 6 
+          }} 
+          textStyle={{
+            fontSize: 14, 
+            color: 'black', 
+            fontWeight:'bold'
+            }}>Country</DataTable.Title>
+        <DataTable.Title style={{ 
+          marginLeft: 40
+          }} 
+          textStyle={{
+            fontSize: 14, 
+            color: 'black', 
+            fontWeight:'bold'
+            }}>Nights</DataTable.Title>
+        <DataTable.Title style={{ 
+          marginLeft: 20
+          }} 
+          textStyle={{
+            fontSize: 14, 
+            color: 'black', 
+            fontWeight:'bold'
+            }}>kgCO2e</DataTable.Title>
       </DataTable.Header>
       {
         hotelStays.map((item, key) => {
           return (
             <DataTable.Row 
               key={item.id}>
-              <DataTable.Cell style={{  marginLeft: 6 }}>{item.countryName}</DataTable.Cell>
-              <DataTable.Cell style={{  marginLeft: 50 }}>{item.noOfNights}</DataTable.Cell>
-              <DataTable.Cell style={{  marginLeft: 5 }}>{item.emissions}</DataTable.Cell>
+              <DataTable.Cell style={{ 
+                marginLeft: 6 
+                }}>{item.countryName}</DataTable.Cell>
+              <DataTable.Cell style={{ 
+                marginLeft: 50 
+                }}>{item.noOfNights}</DataTable.Cell>
+              <DataTable.Cell style={{ 
+                marginLeft: 5 
+                }}>{item.emissions}</DataTable.Cell>
               </DataTable.Row>
           )})}
       </DataTable>
@@ -197,12 +242,10 @@ return (
     </View>
     </ScrollView>
     </Layout>
-
 )};
 
-/*
-* StyleSheet used for the styling of the Views in the code. 
-*/ 
+
+// StyleSheet used for the styling of the Views in the code. 
 
 const styles = StyleSheet.create({
   container: {
@@ -212,11 +255,10 @@ const styles = StyleSheet.create({
       margin: 20,
       marginHorizontal: 25,
       shadowColor: '#171717',
-        shadowOffset: {width: 4, height: 4},
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
+      shadowOffset: {width: 4, height: 4},
+      shadowOpacity: 0.5,
+      shadowRadius: 5,
   },
-
   innerContainer: {
       backgroundColor: 'ivory',
       alignItems: 'center',
@@ -224,7 +266,6 @@ const styles = StyleSheet.create({
       borderRadius: 15,
       padding: 10,
       margin: 2,
-
   },
   container2: {
   backgroundColor: 'steelblue',
@@ -233,12 +274,12 @@ const styles = StyleSheet.create({
   margin: 20,
   marginHorizontal: 25,
   shadowColor: '#171717',
-    shadowOffset: {width: 4, height: 4},
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    marginTop: -5,
-    width: 260,
-    marginLeft: 100
+  shadowOffset: {width: 4, height: 4},
+  shadowOpacity: 0.5,
+  shadowRadius: 5,
+  marginTop: -5,
+  width: 260,
+  marginLeft: 100
   },
 })
 

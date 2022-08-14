@@ -9,6 +9,8 @@ import renderer from 'react-test-renderer';
  */
 
 it('renders correctly', () => {
-  const tree = renderer.create(<Information>Snapshot Test</Information>).toJSON();
+  const tree = renderer
+  .create(<Information>Snapshot Test</Information>)
+  .toJSON();
   expect(tree).toMatchSnapshot();
 });

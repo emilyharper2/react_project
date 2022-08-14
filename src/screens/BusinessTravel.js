@@ -1,6 +1,17 @@
 // Import relevant modules and functions.
 import React, { useState, useEffect, useRef, Component}  from "react";
-import { View, Image, TextInput, SafeAreaView, StatusBar, Dimensions, StyleSheet, ScrollView, TouchableHighlight, Alert} from "react-native";
+import { 
+  View, 
+  Image, 
+  TextInput, 
+  SafeAreaView, 
+  StatusBar, 
+  Dimensions, 
+  StyleSheet, 
+  ScrollView, 
+  TouchableHighlight, 
+  Alert
+} from "react-native";
 import {
   Layout,
   TopNav,
@@ -9,14 +20,14 @@ import {
   useTheme,
   Button
 } from "react-native-rapi-ui";
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 import { Ionicons } from "@expo/vector-icons";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SelectDropdown from 'react-native-select-dropdown';
-import {addDoc, collection, doc, setDoc} from "firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { db } from "../firebase/config";
 
-/*
+/**
 * This page acts as the individual add emissions page for the 'Business Travel'
 * Scope 3 category and displays a dropdown menu allowing the user to select
 * a mode of transport and an input box allowing the user to input the distance
@@ -28,7 +39,7 @@ import { db } from "../firebase/config";
 */
 
 export default function ({ navigation }) {
-  /*
+  /**
   * Constant variable for this page to allow for dark mode feature.
   * As well as this, constant variable to store the distance travelled,
   * the list of transport modes to select from, the transport mode selected, 
@@ -44,7 +55,7 @@ export default function ({ navigation }) {
   const calculation = (number * factor).toFixed(3)
   const [businessEmissions, setBusinessEmissions] = useState("");
 
-  /*
+  /**
   * Creating the 'Business Travel' collection and storing the transport type
   * selected, the distance travelled inputted value and the resultant emissions
   * from the calculation.
@@ -66,7 +77,7 @@ export default function ({ navigation }) {
     alert('Emissions Added!');
   }
 
-  /*
+  /**
   * Listing the transport types for the dropdown menu along with their
   * corresponding conversion factors that will be multiplied by the distance
   * travelled number. 
@@ -115,17 +126,19 @@ export default function ({ navigation }) {
   });
 
   /*
-  * Line 125-191 represents the layout of the page, including the icon for 
-  * activating the dark/light mode in the top-right-hand corner and a 'return' icon
-  * in the top-left-hand corner to return to the 'main' add emissions page.
+  * Line 144-204 represents the layout of the page, including the icon for 
+  * activating the dark/light mode in the top-right-hand corner and a 'return' 
+  * icon in the top-left-hand corner to return to the 'main' add emissions page.
   * 
-  * The 'Business Travel' heading is added, with an image representing the title. 
+  * The 'Business Travel' heading is added, with an image representing the 
+  * title. 
   * 
-  * The dropdown menu is then created, storing the selected value. An input box is added
-  * to allow the user to enter a number of kilometers. The cloud image is added and 
-  * calculated emissions are displayed on top of it. 
+  * The dropdown menu is then created, storing the selected value. An input box 
+  * is added to allow the user to enter a number of kilometers. The cloud image 
+  * is added and calculated emissions are displayed on top of it. 
   * 
-  * The 'Add Emissions' button is created, activating the 'create' function once pressed. 
+  * The 'Add Emissions' button is created, activating the 'create' function 
+  * once pressed. 
   */
   
   return (
@@ -161,7 +174,7 @@ export default function ({ navigation }) {
         backgroundColor: 'lightskyblue',
         borderRadius: 14,
         width: 310,
-        height:75,
+        height: 75,
         textAlign: 'left',
         flexDirection: 'row',
         shadowColor: '#171717',
@@ -211,15 +224,19 @@ export default function ({ navigation }) {
 		// text represented for each item in dropdown
 	  	return item.name
 	  }}
-    buttonStyle ={styles.dropdown1BtnStyle}
-    buttonTextStyle = {styles.dropdown1BtnTxtStyle}
+    buttonStyle= {styles.dropdown1BtnStyle}
+    buttonTextStyle= {styles.dropdown1BtnTxtStyle}
     renderDropdownIcon={isOpened => {
-      return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+      return <FontAwesome 
+      name={isOpened ? 'chevron-up' : 'chevron-down'} 
+      color={'#444'} 
+      size={18} 
+      />;
     }}
-    dropdownIconPosition={'right'}
+    dropdownIconPosition= {'right'}
     dropdownStyle= {styles.dropdown1DropdownStyle}
-    rowStyle = {styles.dropdown1DropdownStyle}
-    rowTextStyle = {styles.dropdown1RowTxtStyle}
+    rowStyle= {styles.dropdown1DropdownStyle}
+    rowTextStyle= {styles.dropdown1RowTxtStyle}
   />  
 </View>
 <View style={{
@@ -242,7 +259,7 @@ export default function ({ navigation }) {
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-        marginLeft:260,
+        marginLeft: 260,
         fontSize: 18,
         textShadowColor: '#444'
       }} 
@@ -262,7 +279,6 @@ export default function ({ navigation }) {
               alignSelf: "center",
               marginBottom: 70,
               marginTop: 10
-              
             }}
             source={require('../../assets/thecloud.png')}
           />
@@ -273,7 +289,7 @@ export default function ({ navigation }) {
     marginLeft: 122,
     fontSize: 26, 
     marginTop: -215,
-    color:'black'
+    color: 'black'
   }}>{calculation} kgCO2e </Text>
   </View>
 
@@ -316,7 +332,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: '10%',
   },
-  dropdownsRow: {flexDirection: 'row', width: '90%', paddingHorizontal: '5%', marginTop: 40, marginLeft: 22},
+  dropdownsRow: {
+    flexDirection: 'row', 
+    width: '90%', 
+    paddingHorizontal: '5%', 
+    marginTop: 40, 
+    marginLeft: 22
+  },
   dropdown1BtnStyle: {
     flex: 1,
     height: 50,
@@ -327,7 +349,10 @@ const styles = StyleSheet.create({
   },
   dropdown1BtnTxtStyle: {color: '#444', textAlign: 'left'},
   dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
-  dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
+  dropdown1RowStyle: {
+    backgroundColor: '#EFEFEF', 
+    borderBottomColor: '#C5C5C5'
+  },
   dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
   divider: {width: 12}
 });

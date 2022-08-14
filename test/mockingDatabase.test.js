@@ -6,14 +6,34 @@ const {mockCollection} = require('firestore-jest-mock/mocks/firestore')
 mockFirebase({
   database: {
     HotelStays: [
-      { category: 'Hotel Stays', countryName: 'Brazil', emissions: 61.500, noOfNights: 5},
-      { category: 'Hotel Stays', countryName: 'UK', emissions: 83.400, noOfNights: 6 },
+      { 
+        category: 'Hotel Stays', 
+        countryName: 'Brazil', 
+        emissions: 61.500, 
+        noOfNights: 5
+    },
+      { 
+        category: 'Hotel Stays', 
+        countryName: 'UK', 
+        emissions: 83.400, 
+        noOfNights: 6 
+    },
     ],
     Commuting: [
-        { category: 'Commuting', transportType: 'Small Car (Petrol)', distanceTravelled: 50, comEmissions: 7.473 }
+        { 
+            category: 'Commuting', 
+            transportType: 'Small Car (Petrol)', 
+            distanceTravelled: 50, 
+            comEmissions: 7.473 
+        }
     ],
     BusinessTravel: [
-        { category 'Business Travel', transportType2: 'Ferry (Foot Passenger)', distanceTravelled2: 400, businessEmissions: 7.495 }
+        { 
+            category 'Business Travel', 
+            transportType2: 'Ferry (Foot Passenger)', 
+            distanceTravelled2: 400, 
+            businessEmissions: 7.495 
+        }
     ]
   },
 });

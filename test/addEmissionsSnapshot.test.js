@@ -9,6 +9,8 @@ import AddEmissions from '../src/screens/AddEmissions';
  */
 
 it('renders correctly', () => {
-    const treeTwo = renderer.create(<AddEmissions>Snapshot Test</AddEmissions>).toJSON();
+    const treeTwo = renderer
+    .create(<AddEmissions>Snapshot Test</AddEmissions>)
+    .toJSON();
     expect(treeTwo).toMatchSnapshot();
   });

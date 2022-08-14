@@ -28,7 +28,7 @@ import { fontSize } from "react-native-rapi-ui/constants/typography";
 import {addDoc, collection, doc, setDoc} from "firebase/firestore";
 import { db } from "../firebase/config";
 
-/*
+/**
 * This page acts as the individual add emissions page for the 'Commuting'
 * Scope 3 category and displays a dropdown menu allowing the user to select
 * a mode of transport and an input box allowing the user to input the distance
@@ -40,7 +40,7 @@ import { db } from "../firebase/config";
 */
 
 export default function ({ navigation }) {
-  /*
+  /**
   * Constant variable for this page to allow for dark mode feature.
   *
   * As well as this, constant variable to store the distance travelled,
@@ -57,7 +57,7 @@ export default function ({ navigation }) {
   const calculation = (number * factor).toFixed(3)
   const [comEmissions, setComEmissions] = useState("");
 
-  /*
+  /**
   * Creating the 'Commuting' collection and storing the transport type
   * selected, the distance travelled inputted value and the resultant emissions
   * from the calculation.
@@ -80,7 +80,7 @@ export default function ({ navigation }) {
     alert('Emissions Added!');
   }
 
-  /*
+  /**
   * Listing the transport types for the dropdown menu along with their
   * corresponding conversion factors that will be multiplied by the distance
   * travelled number. 
@@ -116,17 +116,18 @@ export default function ({ navigation }) {
   });
 
   /*
-  * Line 132-199 represents the layout of the page, including the icon for 
-  * activating the dark/light mode in the top-right-hand corner and a 'return' icon
-  * in the top-left-hand corner to return to the 'main' add emissions page.
+  * Line 133-200 represents the layout of the page, including the icon for 
+  * activating the dark/light mode in the top-right-hand corner and a 'return' 
+  * icon in the top-left-hand corner to return to the 'main' add emissions page.
   * 
   * The 'Commuting' heading is added, with an image representing the title. 
   * 
-  * The dropdown menu is then created, storing the selected value. An input box is added
-  * to allow the user to enter a number of kilometers. The cloud image is added and 
-  * calculated emissions are displayed on top of it. 
+  * The dropdown menu is then created, storing the selected value. An input box is 
+  * added to allow the user to enter a number of kilometers. The cloud image is 
+  * added and calculated emissions are displayed on top of it. 
   * 
-  * The 'Add Emissions' button is created, activating the 'create' function once pressed. 
+  * The 'Add Emissions' button is created, activating the 'create' function 
+  * once pressed. 
   */
 
   return (
@@ -162,7 +163,7 @@ export default function ({ navigation }) {
         backgroundColor: 'cornflowerblue',
         borderRadius: 14,
         width: 310,
-        height:75,
+        height: 75,
         textAlign: 'left',
         flexDirection: 'row',
         shadowColor: '#171717',
@@ -203,7 +204,7 @@ export default function ({ navigation }) {
       setFactor([]);
       setTransport([]);
       setFactor(selectedItem.factor);
-      setTransport(selectedItem.name)
+      setTransport(selectedItem.name);
 	  }}
     defaultButtonText = {'Select Mode of Transport'}
 	  buttonTextAfterSelection={(selectedItem, index) => {
@@ -217,7 +218,10 @@ export default function ({ navigation }) {
     buttonStyle ={styles.dropdown1BtnStyle}
     buttonTextStyle = {styles.dropdown1BtnTxtStyle}
     renderDropdownIcon={isOpened => {
-      return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#444'} size={18} />;
+      return <FontAwesome 
+      name={isOpened ? 'chevron-up' : 'chevron-down'} 
+      color={'#444'} 
+      size={18} />;
     }}
     dropdownIconPosition={'right'}
     dropdownStyle= {styles.dropdown1DropdownStyle}
@@ -247,7 +251,7 @@ export default function ({ navigation }) {
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-        marginLeft:260,
+        marginLeft: 260,
         fontSize: 18,
         textShadowColor: '#444'
       }} 
@@ -320,7 +324,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: '10%',
   },
-  dropdownsRow: {flexDirection: 'row', width: '90%', paddingHorizontal: '5%', marginTop: 40, marginLeft: 22},
+  dropdownsRow: {
+    flexDirection: 'row', 
+    width: '90%', 
+    paddingHorizontal: '5%', 
+    marginTop: 40, 
+    marginLeft: 22},
   dropdown1BtnStyle: {
     flex: 1,
     height: 50,
@@ -331,7 +340,10 @@ const styles = StyleSheet.create({
   },
   dropdown1BtnTxtStyle: {color: '#444', textAlign: 'left'},
   dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
-  dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
+  dropdown1RowStyle: {
+    backgroundColor: '#EFEFEF', 
+    borderBottomColor: '#C5C5C5'
+  },
   dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
   divider: {width: 12},
 });

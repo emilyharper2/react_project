@@ -13,9 +13,9 @@ import { getFirestore, collection, query, where, addDoc, getDocs, doc, setDoc} f
 
 const AuthContext = createContext();
 const AuthProvider = (props) => {
-  const auth = getAuth();
-  // user null = loading
-  const [user, setUser] = useState(null);
+    const auth = getAuth();
+    // user null = loading
+    const [user, setUser] = useState(null);
 
   useEffect(() => {
     checkLogin();
@@ -35,10 +35,7 @@ const AuthProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{
-        user,
-      }}
-    >
+      value={{user}}>
       {props.children}
     </AuthContext.Provider>
   );

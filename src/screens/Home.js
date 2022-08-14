@@ -1,6 +1,14 @@
 // Import relevant modules and functions.
 import { React, useState, useEffect} from "react";
-import { View, Linking, StyleSheet, FlatList, ScrollView, Pressable, Image} from "react-native";
+import { 
+  View, 
+  Linking, 
+  StyleSheet, 
+  FlatList, 
+  ScrollView, 
+  Pressable, 
+  Image
+} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
 import {
   Layout,
@@ -17,8 +25,12 @@ import { useRoute } from '@react-navigation/native';
 import { useNavigation, route } from '@react-navigation/native';
 import { render } from "react-dom";
 import { db } from "../firebase/config";
-import {addDoc, collection, doc, getDocs, setDoc} from "firebase/firestore";
-import { getDoc, QueryDocumentSnapshot, QuerySnapshot, query } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { 
+  getDoc, 
+  QueryDocumentSnapshot, 
+  QuerySnapshot, 
+  query } from "firebase/firestore";
 import {
   ref,
   onValue,
@@ -31,12 +43,12 @@ import { async } from "@firebase/util";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 /**
-* This page represents the Homepage of the application. Any emissions that are recorded
-* are displayed on this page, accessing the collections in the database for each of the 
-* Scope 3 categories. 
+* This page represents the Homepage of the application. Any emissions recorded
+* are displayed on this page, accessing the collections in the database for
+* each of the Scope 3 categories. 
 *
-* The recordings are presented as a post and display the two user inputs, the resultant 
-* emissions and the category name within the post. 
+* The recordings are presented as a post and display the two user inputs, the 
+* resultant emissions and the category name within the post. 
 */
 
 export default function ({ route, navigation }) {
@@ -53,7 +65,7 @@ export default function ({ route, navigation }) {
   const [commutingEmissions, setCommutingEmissions] = useState([]);
   const [btEmissions, setBtEmissions] = useState([]);
 
- /*
+ /**
   * Code to call and store all recordings in the 'Hotel Stays' collection into 
   * the 'setHsEmissions' variable. The country, number of nights and resultant 
   * emissions are all stored. 
@@ -82,10 +94,10 @@ export default function ({ route, navigation }) {
   
         })};
 
- /*
+ /**
   * Code to call and store all recordings in the 'Commuting' collection into 
-  * the 'setCommutingEmissions' variable. The tranport type, distance travelled and 
-  * resultant emissions are all stored. 
+  * the 'setCommutingEmissions' variable. The tranport type, distance 
+  * travelled and resultant emissions are all stored. 
   */
 
 useEffect(() => {
@@ -99,7 +111,11 @@ commutingQuery();
                 querySnapshot => {
                     let commutingEmissions = []
                     querySnapshot.forEach((doc)=> {
-                        let {transportType, distanceTravelled, comEmissions} = doc.data()
+                        let {
+                          transportType, 
+                          distanceTravelled, 
+                          comEmissions
+                        } = doc.data()
                         commutingEmissions.push({
                             id: doc.id,
                             transportType,
@@ -112,10 +128,10 @@ commutingQuery();
   
         })};
 
-/*
-  * Code to call and store all recordings in the 'Business Travel' collection into 
-  * the 'setBtEmissions' variable. The tranport type, distance travelled and resultant 
-  * emissions are all stored. 
+/**
+  * Code to call and store all recordings in the 'Business Travel' collection 
+  * into the 'setBtEmissions' variable. The tranport type, distance travelled 
+  * and resultant emissions are all stored. 
   */
 
  useEffect(() => {
@@ -129,7 +145,11 @@ commutingQuery();
               querySnapshot => {
                   let btEmissions = []
                   querySnapshot.forEach((doc)=> {
-                        let {transportType2, distanceTravelled2, businessEmissions} = doc.data()
+                        let {
+                          transportType2, 
+                          distanceTravelled2, 
+                          businessEmissions
+                        } = doc.data()
                         btEmissions.push({
                                     id: doc.id,
                                     transportType2,
@@ -140,8 +160,8 @@ commutingQuery();
                             });
           
                 })};
-/*
-* Line 148-202 represents the layout of the page, including the icon for 
+/**
+* Line 175-228 represents the layout of the page, including the icon for 
 * activating the dark/light mode in the top left corner and the icon
 * for logging out in the top right hand corner.
 *
@@ -184,7 +204,6 @@ commutingQuery();
       />
     
     <ScrollView>
-
     <View
             style={{
               justifyContent: "center",
@@ -197,14 +216,17 @@ commutingQuery();
                 marginTop: 30,
                 height: 135,
                 width: 230,
-                
               }}
               source={require("../../assets/newsplash.png")}
             />
           </View>
 
       <View>
-      <Text style={{textAlign: 'center', fontSize: 28, marginTop: 10}}> Latest Emission Recordings</Text>
+      <Text style={{
+        textAlign: 'center', 
+        fontSize: 28, 
+        marginTop: 10
+        }}> Latest Emission Recordings</Text>
       </View>
 
      <View style={{
@@ -223,8 +245,19 @@ commutingQuery();
           shadowOpacity: 0.5,
           shadowRadius: 5,}}>
             
-            <Text style ={{color: 'white', alignItems:'center', textAlign:'center', marginHorizontal: 8}}>{hsEmission.emissions} kgCO2e was added to the Hotel Stays sector. {'\n'}</Text>
-            <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}>Country: {hsEmission.countryName}     |    Nights: {hsEmission.noOfNights} nights</Text> 
+            <Text style={{
+              color: 'white', 
+              alignItems: 'center', 
+              textAlign: 'center', 
+              marginHorizontal: 8
+              }}>
+              {hsEmission.emissions} kgCO2e was added to the Hotel Stays sector. 
+              {'\n'}</Text>
+            <Text style={{
+              color: 'white', 
+              alignItems: 'center', 
+              textAlign: 'center'}}>
+              Country: {hsEmission.countryName}     |    Nights: {hsEmission.noOfNights} nights</Text> 
 
           </View>
         );
@@ -240,10 +273,19 @@ commutingQuery();
             shadowOffset: {width: 4, height: 4},
             shadowOpacity: 0.5,
             shadowRadius: 5,}}>
-              <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}>{commutingEmission.comEmissions} kgCO2e was added to the Commuting sector. {'\n'}</Text>
-              <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}> Transport: {commutingEmission.transportType}    |   Distance: {commutingEmission.distanceTravelled} km</Text>
-              
-            
+              <Text style ={{
+                color: 'white',
+                alignItems: 'center', 
+                textAlign: 'center'
+                }}>
+                {commutingEmission.comEmissions} kgCO2e was added to the Commuting sector. 
+                {'\n'}</Text>
+              <Text style ={{
+                color: 'white', 
+                alignItems: 'center', 
+                textAlign: 'center'
+                }}> 
+                Transport: {commutingEmission.transportType}    |   Distance: {commutingEmission.distanceTravelled} km</Text>
             </View>
           );
         })}
@@ -257,16 +299,21 @@ commutingQuery();
             shadowOffset: {width: 4, height: 4},
             shadowOpacity: 0.5,
             shadowRadius: 5,}}>
-              <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}>{btEmission.businessEmissions} kgCO2e was added to the Business Travel sector. {'\n'}</Text>
-              <Text style ={{color: 'white', alignItems:'center', textAlign:'center'}}> Transport: {btEmission.transportType2}    |   Distance: {btEmission.distanceTravelled2} km</Text>
-              
-            
+              <Text style ={{
+                color: 'white', 
+                alignItems: 'center', 
+                textAlign: 'center'}}>{btEmission.businessEmissions} kgCO2e was added to the Business Travel sector. 
+                {'\n'}</Text>
+              <Text style ={{
+                color: 'white', 
+                alignItems: 'center', 
+                textAlign: 'center'}}> 
+                Transport: {btEmission.transportType2}    |   Distance: {btEmission.distanceTravelled2} km</Text>
             </View>
           );
         })}
       </View>
     </ScrollView>
-
     </Layout>
 
   )};

@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
   KeyboardAvoidingView,
-  Image,
+  Image
 } from "react-native";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import {
@@ -14,10 +14,10 @@ import {
   TextInput,
   Button,
   useTheme,
-  themeColor,
+  themeColor
 } from "react-native-rapi-ui";
 
-/*
+/**
 * This represents the Forgotten Password page that allows the user to enter
 * their email address and a reset password link will be emailed to them.
 * The Login page can be also be accessed by clicking on the 'Login here'
@@ -48,9 +48,9 @@ export default function ({ navigation }) {
       });
   }
   
- /*
-  * Constructing the layout of the application, including a ScrollView, dark mode feature
-  * and the Curoscope logo.
+ /**
+  * Constructing the layout of the application, including a ScrollView, dark mode
+  * feature and the Curoscope logo.
   * 
   * A button to return to the Login screen is also created.
   */ 
@@ -60,43 +60,40 @@ export default function ({ navigation }) {
       <Layout>
         <ScrollView
           contentContainerStyle={{
-            flexGrow: 1,
-          }}
-        >
+            flexGrow: 1
+          }}>
           <View
             style={{
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light,
-            }}
-          >
+              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light
+            }}>
             <Image
               resizeMode="contain"
               style={{
                 marginTop: 60,
                 height: 135,
-                width: 230,
+                width: 230
               }}
               source= {require("../../../assets/newlogoblack.png")}
             />
           </View>
+
           <View
             style={{
               flex: 3,
               paddingHorizontal: 20,
               paddingBottom: 20,
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light,
-            }}
-          >
+              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light
+            }}>
             <Text
               size="h3"
               fontWeight="bold"
               style={{
                 alignSelf: "center",
-                padding: 30,
-              }}
-            >
+                padding: 30
+              }}>
               Forget Password
             </Text>
             <Text>Email</Text>
@@ -108,8 +105,7 @@ export default function ({ navigation }) {
               autoCompleteType="off"
               autoCorrect={false}
               keyboardType="email-address"
-              onChangeText={(text) => setEmail(text)}
-            />
+              onChangeText={(text) => setEmail(text)}/>
             <Button
               text={loading ? "Loading" : "Send email"}
               onPress={() => {
@@ -117,30 +113,27 @@ export default function ({ navigation }) {
               }}
               color = 'steelblue'
               style={{
-                marginTop: 20,
+                marginTop: 20
               }}
-              disabled={loading}
-            />
+              disabled={loading}/>
 
             <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 marginTop: 15,
-                justifyContent: "center",
-              }}
-            >
+                justifyContent: "center"
+              }}>
               <Text size="md">Already have an account?</Text>
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate("Login");
-                }}
-              >
+                }}>
                 <Text
                   size="md"
                   fontWeight="bold"
                   style={{
-                    marginLeft: 5,
+                    marginLeft: 5
                   }}
                 >
                   Login here
@@ -152,7 +145,7 @@ export default function ({ navigation }) {
                 flexDirection: "row",
                 alignItems: "center",
                 marginTop: 30,
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <TouchableOpacity

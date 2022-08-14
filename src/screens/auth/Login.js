@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
   KeyboardAvoidingView,
-  Image,
+  Image
 } from "react-native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import {
@@ -14,10 +14,10 @@ import {
   TextInput,
   Button,
   useTheme,
-  themeColor,
+  themeColor
 } from "react-native-rapi-ui";
 
-/*
+/**
 * This represents the Login page that allows the user to enter
 * their email address and password in order to access the application.
 * The Register page can also be accessed by clicking the 'Register Here'
@@ -35,7 +35,10 @@ export default function ({ navigation }) {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Setting up the login function that stores the email and password of the user.
+  /**
+   * Setting up the login function that stores the email and password of 
+   * the user.
+   */
 
   async function login() {
     setLoading(true);
@@ -45,7 +48,7 @@ export default function ({ navigation }) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
-      // ...
+      
       setLoading(false);
       alert(errorMessage);
     });
@@ -64,7 +67,7 @@ export default function ({ navigation }) {
       <Layout>
         <ScrollView
           contentContainerStyle={{
-            flexGrow: 1,
+            flexGrow: 1
           }}
         >
           <View
@@ -72,7 +75,7 @@ export default function ({ navigation }) {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light,
+              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light
             }}
           >
             <Image
@@ -80,7 +83,7 @@ export default function ({ navigation }) {
               style={{
                 marginTop: 60,
                 height: 135,
-                width: 230,
+                width: 230
               }}
               source= {require("../../../assets/newlogoblack.png")}
             />
@@ -90,14 +93,14 @@ export default function ({ navigation }) {
               flex: 3,
               paddingHorizontal: 20,
               paddingBottom: 20,
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light,
+              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light
             }}
           >
             <Text
               fontWeight="bold"
               style={{
                 alignSelf: "center",
-                padding: 30,
+                padding: 30
               }}
               size="h3"
             >
@@ -133,7 +136,7 @@ export default function ({ navigation }) {
               }}
               color = 'steelblue'
               style={{
-                marginTop: 20,
+                marginTop: 20
               }}
               disabled={loading}
             />
@@ -143,7 +146,7 @@ export default function ({ navigation }) {
                 flexDirection: "row",
                 alignItems: "center",
                 marginTop: 15,
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <Text size="md">Don't have an account?</Text>
@@ -168,7 +171,7 @@ export default function ({ navigation }) {
                 flexDirection: "row",
                 alignItems: "center",
                 marginTop: 10,
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <TouchableOpacity
@@ -186,7 +189,7 @@ export default function ({ navigation }) {
                 flexDirection: "row",
                 alignItems: "center",
                 marginTop: 30,
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <TouchableOpacity

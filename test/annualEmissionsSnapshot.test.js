@@ -9,6 +9,8 @@ import AnnualEmissions from '../src/screens/AnnualEmissions';
  */
 
 it('renders correctly', () => {
-    const treeThree = renderer.create(<AnnualEmissions>Snapshot Test</AnnualEmissions>).toJSON();
+    const treeThree = renderer
+    .create(<AnnualEmissions>Snapshot Test</AnnualEmissions>)
+    .toJSON();
     expect(treeThree).toMatchSnapshot();
   });

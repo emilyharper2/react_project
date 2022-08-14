@@ -1,6 +1,14 @@
 // Import relevant modules and functions.
-import {React, useState, useEffect} from "react";
-import { View, Linking, StyleSheet, FlatList, ScrollView, Pressable, Image } from "react-native";
+import { React, useState, useEffect } from "react";
+import { 
+  View, 
+  Linking, 
+  StyleSheet, 
+  FlatList, 
+  ScrollView, 
+  Pressable, 
+  Image 
+} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
 import {
   Layout,
@@ -14,8 +22,20 @@ import { useRoute } from '@react-navigation/native';
 import { useNavigation, route } from '@react-navigation/native';
 import { render } from "react-dom";
 import { db } from "../firebase/config";
-import {addDoc, collection, doc, getDocs, onSnapshot, setDoc} from "firebase/firestore";
-import { getDoc, QueryDocumentSnapshot, QuerySnapshot, query } from "firebase/firestore";
+import { 
+  addDoc, 
+  collection, 
+  doc, 
+  getDocs, 
+  onSnapshot, 
+  setDoc
+} from "firebase/firestore";
+import { 
+  getDoc, 
+  QueryDocumentSnapshot, 
+  QuerySnapshot, 
+  query 
+} from "firebase/firestore";
 import {
   ref,
   onValue,
@@ -36,13 +56,13 @@ import {
 } from 'react-native-chart-kit'
 
 /**
-* This page represents the Profile page of the application. Any emissions that are recorded
-* are displayed on this page in an analytical graph, accessing the collections in the 
-* database for each of the Scope 3 categories. 
+* This page represents the Profile page of the application. Any emissions 
+* recorded are displayed on this page in an analytical graph, accessing 
+* the collections in the database for each of the Scope 3 categories. 
 *
-* The two graphs created include a pie chart displaying the percentage of emissions that 
-* each category is responsible for and a bar chart showing the number of recordings for 
-* each category. 
+* The two graphs created include a pie chart displaying the percentage of 
+* emissions that each category is responsible for and a bar chart showing 
+* the number of recordings for each category. 
 */
 
 export default function ({ route, navigation }) {
@@ -76,9 +96,10 @@ export default function ({ route, navigation }) {
   /**
   * Code to call and store all recordings in the 'Hotel Stays' collection into 
   * the 'setHsEmissions' variable. The country, number of nights and resultant 
-  * emissions are all stored. The 'emissionsAmount' variable holds the calculation
-  * to add all resultant emissions in the collection and the 'count' variable finds 
-  * the length of the collection. This is then stored in the 'setDocsHS' variable. 
+  * emissions are all stored. The 'emissionsAmount' variable holds the 
+  * calculation to add all resultant emissions in the collection and the 
+  * 'count' variable finds the length of the collection. This is then stored 
+  * in the 'setDocsHS' variable. 
   */
 
   useEffect(() => {
@@ -102,7 +123,8 @@ export default function ({ route, navigation }) {
                             noOfNights,
                         });
                     setHsEmissions(hsEmissions);
-                    emissionsAmount = emissionsAmount + parseInt(doc.data().emissions, 0)
+                    emissionsAmount = emissionsAmount 
+                    + parseInt(doc.data().emissions, 0)
                     setAmountHS(emissionsAmount);
                     count = hsEmissions.length;
                     setDocsHS(count);
@@ -111,12 +133,13 @@ export default function ({ route, navigation }) {
   
                 })};
 
-/*
+/**
   * Code to call and store all recordings in the 'Commuting' collection into 
-  * the 'setCommutingEmissions' variable. The tranport type, distance travelled and 
-  * resultant emissions are all stored. The 'emissionsCommuting' variable displays the 
-  * calculation to add all resultant emissions in the collection and the 'count2' variable finds 
-  * the length of the collection. This is then stored in the 'setDocsCom' variable. 
+  * the 'setCommutingEmissions' variable. The tranport type, distance travelled
+  * and resultant emissions are all stored. The 'emissionsCommuting' variable 
+  * displays the calculation to add all resultant emissions in the collection 
+  * and the 'count2' variable finds the length of the collection. This is then 
+  * stored in the 'setDocsCom' variable. 
   */
 
 useEffect(() => {
@@ -132,7 +155,11 @@ commutingQuery();
                     let emissionsCommuting = 0
                     let count2 = 0
                     querySnapshot.forEach((doc)=> {
-                        let {transportType, distanceTravelled, comEmissions} = doc.data()
+                        let {
+                          transportType, 
+                          distanceTravelled, 
+                          comEmissions
+                        } = doc.data()
                         commutingEmissions.push({
                             id: doc.id,
                             transportType,
@@ -140,7 +167,8 @@ commutingQuery();
                             comEmissions, 
                         });
                     setCommutingEmissions(commutingEmissions);
-                    emissionsCommuting = emissionsCommuting + parseInt(doc.data().comEmissions, 0)
+                    emissionsCommuting = emissionsCommuting 
+                    + parseInt(doc.data().comEmissions, 0)
                     setAmountCom(emissionsCommuting);
                     count2 = commutingEmissions.length;
                     setDocsCom(count2);
@@ -149,11 +177,12 @@ commutingQuery();
         })};
 
 /**
-  * Code to call and store all recordings in the 'Business Travel' collection into 
-  * the 'setBtEmissions' variable. The tranport type, distance travelled and resultant 
-  * emissions are all stored. The 'emissionsTravel' variable displays the 
-  * calculation to add all resultant emissions in the collection and the 'count3' variable finds 
-  * the length of the collection. This is then stored in the 'setDocsBT' variable. 
+  * Code to call and store all recordings in the 'Business Travel' collection
+  * into the 'setBtEmissions' variable. The tranport type, distance travelled 
+  * and resultant emissions are all stored. The 'emissionsTravel' variable 
+  * displays the calculation to add all resultant emissions in the collection 
+  * and the 'count3' variable finds the length of the collection. This is then 
+  * stored in the 'setDocsBT' variable. 
   */
 
  useEffect(() => {
@@ -169,7 +198,11 @@ commutingQuery();
                   let emissionsTravel = 0
                   let count3 = 0
                   querySnapshot.forEach((doc)=> {
-                        let {transportType2, distanceTravelled2, businessEmissions} = doc.data()
+                        let {
+                          transportType2, 
+                          distanceTravelled2, 
+                          businessEmissions
+                        } = doc.data()
                         btEmissions.push({
                                     id: doc.id,
                                     transportType2,
@@ -177,7 +210,8 @@ commutingQuery();
                                     businessEmissions
                                 });
                             setBtEmissions(btEmissions);
-                            emissionsTravel = emissionsTravel + parseInt(doc.data().businessEmissions, 0)
+                            emissionsTravel = emissionsTravel 
+                            + parseInt(doc.data().businessEmissions, 0)
                             setAmountBT(emissionsTravel);
                             count3 = btEmissions.length;
                             setDocsBT(count3);
@@ -195,35 +229,35 @@ const barData = {
        data: [docsHS, docsCom, docsBT],
        barColors: ['steelblue', 'cornflowerblue', 'lightskyblue']
      },
-     ],
-    };
+  ],
+};
 
-    const pieData = [
-      {
-        name: 'Hotel Stays',
-        emissions: amountHS,
-        color: 'steelblue',
-        legendFontColor: isDarkmode === true ? 'white' : 'black',
-        legendFontSize: 12,
-      },
-      {
-        name: 'Commuting',
-        emissions: amountCom,
-        color: 'cornflowerblue',
-        legendFontColor: isDarkmode === true ? 'white' : 'black',
-        legendFontSize: 12,
-      },
-      {
-        name: 'Business Travel',
-        emissions: amountBT,
-        color: 'lightskyblue',
-        legendFontSize: 12,
-        legendFontColor: isDarkmode === true ? 'white' : 'black',
-      },
-    ]
+const pieData = [
+  {
+    name: 'Hotel Stays',
+    emissions: amountHS,
+    color: 'steelblue',
+    legendFontColor: isDarkmode === true ? 'white' : 'black',
+    legendFontSize: 12,
+  },
+  {
+    name: 'Commuting',
+    emissions: amountCom,
+    color: 'cornflowerblue',
+    legendFontColor: isDarkmode === true ? 'white' : 'black',
+    legendFontSize: 12,
+  },
+  {
+    name: 'Business Travel',
+    emissions: amountBT,
+    color: 'lightskyblue',
+    legendFontSize: 12,
+    legendFontColor: isDarkmode === true ? 'white' : 'black',
+  },
+]
   
   /**
-  * Line 237-288 represents the layout of the page, including the icon for 
+  * Line 270-316 represents the layout of the page, including the icon for 
   * activating the dark/light mode in the top left corner and the icon
   * for logging out in the top right hand corner.
   *
@@ -275,15 +309,22 @@ const barData = {
                 marginTop: 30,
                 height: 135,
                 width: 230,
-                
               }}
               source={require("../../assets/newsplash.png")}
             />
           </View>
 
       <View>
-      <Text style={{textAlign: 'center', fontSize: 34, marginTop: 10}}> Welcome to Curoscope</Text>
-        <Text style={{textAlign:'center', fontSize: 18, marginTop: 10}}>{user.email}</Text>
+      <Text style={{
+        textAlign: 'center', 
+        fontSize: 34, 
+        marginTop: 10
+        }}> Welcome to Curoscope</Text>
+        <Text style={{
+          textAlign:'center', 
+          fontSize: 18, 
+          marginTop: 10
+          }}>{user.email}</Text>
       </View>
 
       <View style ={{
@@ -294,7 +335,9 @@ const barData = {
         marginTop: 50
       }}>
         <Text style={{
-        textAlign: 'center', fontSize: 20, marginTop: 8
+        textAlign: 'center', 
+        fontSize: 20, 
+        marginTop: 8
         // Adding the title to the pie chart as well as designing appropriately.
       }}>% of Emissions (kgCO2e)</Text>
       <PieChart style={{
@@ -321,14 +364,16 @@ const barData = {
       />
     </View>
     <View style={{
-      width : 450,
-      height : 300,
+      width: 450,
+      height: 300,
       alignItems: 'center',
       marginLeft: -34,
       marginTop: -30,
     }}>
       <Text style={{
-        textAlign: 'center', fontSize: 20, marginTop: 8
+        textAlign: 'center', 
+        fontSize: 20, 
+        marginTop: 8
         // Adding the title to the bar chart as well as designing appropriately.
       }}>Number of Recordings</Text>
     <BarChart style={{
@@ -351,7 +396,7 @@ const barData = {
       withInnerLines={false}
       />
     </View>
-    </ScrollView>
-    </Layout>
+  </ScrollView>
+  </Layout>
   );
 }

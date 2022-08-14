@@ -15,17 +15,18 @@ import {
   TextInput,
   Button,
   useTheme,
-  themeColor,
+  themeColor
 } from "react-native-rapi-ui";
 
-/*
+/**
 * This represents the Register page and allows the user to enter their name, 
 * company name, company email address, password and confirmation of password.
 * 
 * Once the relevant are entered, the user can press the 'Create an Account' 
 * button and this stores the users email and password.
 * 
-* A button to navigate the Login page if an account already exists is also added. 
+* A button to navigate the Login page if an account already exists is also 
+* added. 
 * 
 * The dark mode feature is also provided on this page. 
 */
@@ -41,7 +42,10 @@ export default function ({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Setting up the register function to store the email and password of the user.
+  /**
+   * Setting up the register function to store the email and password of 
+   * the user.
+  */
   async function register() {
     setLoading(true);
     await createUserWithEmailAndPassword(auth, email, password).catch(function (
@@ -56,7 +60,7 @@ export default function ({ navigation }) {
     });
   }
 
-  /*
+  /**
   * The Curoscope application logo is added to the top of the page.
   * 
   * Text Input boxes are created, allowing the user to enter their information. 
@@ -68,7 +72,7 @@ export default function ({ navigation }) {
       <Layout>
         <ScrollView
           contentContainerStyle={{
-            flexGrow: 1,
+            flexGrow: 1
           }}
         >
           <View
@@ -76,7 +80,7 @@ export default function ({ navigation }) {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light,
+              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light
             }}
           >
             <Image
@@ -84,8 +88,7 @@ export default function ({ navigation }) {
               style={{
                 marginTop: 40,
                 height: 135,
-                width: 230,
-                
+                width: 230
               }}
               source={require("../../../assets/newlogoblack.png")}
             />
@@ -95,7 +98,7 @@ export default function ({ navigation }) {
               flex: 3,
               paddingHorizontal: 20,
               paddingBottom: 20,
-              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light ,
+              backgroundColor: isDarkmode ? themeColor.dark : themeColor.light
             }}
           >
             <Text
@@ -103,7 +106,7 @@ export default function ({ navigation }) {
               size="h3"
               style={{
                 alignSelf: "center",
-                padding: 30,
+                padding: 30
               }}
             >
               Register
@@ -178,7 +181,7 @@ export default function ({ navigation }) {
               }}
               color = 'green'
               style={{
-                marginTop: 20,
+                marginTop: 20
               }}
               disabled={loading}
               testID = "registerButton"
@@ -189,7 +192,7 @@ export default function ({ navigation }) {
                 flexDirection: "row",
                 alignItems: "center",
                 marginTop: 15,
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <Text size="md">Already have an account?</Text>
@@ -202,7 +205,7 @@ export default function ({ navigation }) {
                   size="md"
                   fontWeight="bold"
                   style={{
-                    marginLeft: 5,
+                    marginLeft: 5
                   }}
                 >
                   Login here
@@ -214,7 +217,7 @@ export default function ({ navigation }) {
                 flexDirection: "row",
                 alignItems: "center",
                 marginTop: 30,
-                justifyContent: "center",
+                justifyContent: "center"
               }}
             >
               <TouchableOpacity
@@ -226,7 +229,7 @@ export default function ({ navigation }) {
                   size="md"
                   fontWeight="bold"
                   style={{
-                    marginLeft: 5,
+                    marginLeft: 5 
                   }}
                 >
                   {isDarkmode ? "☀️ light theme" : "🌑 dark theme"}

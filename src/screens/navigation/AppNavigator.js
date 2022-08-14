@@ -55,7 +55,7 @@ const Auth = () => {
   );
 };
 
-/*
+/**
 * Creating the MainStack for the application which includes all pages accessed
 * from the bottom navigation bar, the MainTabs const. 
 */ 
@@ -158,7 +158,7 @@ const MainTabs = () => {
   );
 };
 
-/*
+/**
 * Creating the AddStack which includes the pages navigated from
 *'Add Emissions' page accessed from the bottom navigation bar. 
 */ 
@@ -180,7 +180,7 @@ const Add = () => {
   );
 };
 
-/*
+/**
 * Creating the AnnualStack which includes the pages navigated from
 *'Overview' page accessed from the bottom navigation bar. 
 */ 
@@ -202,7 +202,7 @@ const Annual = () => {
   );
 };
 
-/*
+/**
 * Navigating the user to the Homepage of the appliation if 
 * authorised. 
 */

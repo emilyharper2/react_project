@@ -20,12 +20,12 @@ import { Alert } from "react-native-web";
 import App from "../../App";
 import { fontSize } from "react-native-rapi-ui/constants/typography";
 
-/*
+/**
 * This page acts as the main 'Add Emissions' page and presents 3 buttons
 * to access the 3 different Scope 3 category pages in which emissions can 
 * be calculated from. 
 * 
-* Line 39-67 represents the layout of the page, including the icon for 
+* Line 44-73 represents the layout of the page, including the icon for 
 * activating the dark/light mode in the top left corner and the icon
 * for logging out in the top right hand corner. 
 *
@@ -35,7 +35,7 @@ import { fontSize } from "react-native-rapi-ui/constants/typography";
 */
 
 export default function ({ navigation }) {
-  /*
+  /**
   * Constant variables for this page to allow for dark mode feature
   * and logout button. 
   */ 
@@ -84,7 +84,6 @@ export default function ({ navigation }) {
               height: 60, 
               marginLeft: -150,
               marginTop: -20
-              
             }}
             source={require('../../assets/hotel.png')}
           />    
@@ -95,9 +94,8 @@ export default function ({ navigation }) {
             marginTop: -40
           }}>Hotel Stays</Text>
         </TouchableOpacity>
-        
-        
     </View>
+
     <View>
     <TouchableOpacity
         onPress={() => navigation.navigate("Commuting")}
@@ -109,7 +107,6 @@ export default function ({ navigation }) {
               height: 35, 
               marginLeft: -150,
               marginTop: -10
-              
             }}
             source={require('../../assets/car2.png')}
           />    
@@ -121,6 +118,7 @@ export default function ({ navigation }) {
           }}>Commuting</Text>
         </TouchableOpacity>
     </View>
+
     <View>
     <TouchableOpacity
         onPress={() => navigation.navigate("BusinessTravel")}
@@ -132,7 +130,6 @@ export default function ({ navigation }) {
               height: 70, 
               marginLeft: -170,
               marginTop: -20
-              
             }}
             source={require('../../assets/travel2.png')}
           />    
@@ -145,12 +142,11 @@ export default function ({ navigation }) {
         </TouchableOpacity>
     </View>
   </SafeAreaView>
-
   </Layout>   
   );
 }
 
-/*
+/** 
 * The styles for the different buttons are included 
 * in the StyleSheet below, placing them in the relevant 
 * position as well as designing them and adding a shadow offset.

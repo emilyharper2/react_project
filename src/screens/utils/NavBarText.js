@@ -2,7 +2,7 @@
 import React from "react";
 import { Text, themeColor, useTheme } from "react-native-rapi-ui";
 
-/*
+/**
 * Adding the design for the text on the bottom navigation bar.
 * This includes the size of the text, the position of the text 
 * on the page and its colour, depending on if dark mode is 

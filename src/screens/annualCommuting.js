@@ -1,6 +1,14 @@
 // Import relevant modules and functions.
-import {React,  useEffect, useState} from "react";
-import { View , FlatList, StyleSheet, Pressable, Image, ScrollView, RefreshControl} from "react-native";
+import { React,  useEffect, useState } from "react";
+import { 
+  View , 
+  FlatList, 
+  StyleSheet,
+  Pressable, 
+  Image, 
+  ScrollView, 
+  RefreshControl
+} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
 import {
   Layout,
@@ -11,8 +19,13 @@ import {
 } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
 import { db } from "../firebase/config";
-import {addDoc, collection, doc, getDocs, setDoc} from "firebase/firestore";
-import { getDoc, QueryDocumentSnapshot, QuerySnapshot, query } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { 
+  getDoc, 
+  QueryDocumentSnapshot, 
+  QuerySnapshot, 
+  query 
+} from "firebase/firestore";
 import {
   ref,
   onValue,
@@ -20,21 +33,21 @@ import {
   update,
   remove
 } from 'firebase/database';
-import {firebase} from "../firebase/FirebaseConfig";
+import { firebase } from "../firebase/FirebaseConfig";
 import { async } from "@firebase/util";
 import { DataTable } from "react-native-paper";
 
-/*
+/**
 * This page acts as the individual annual emissions page for the 'Commuting'
-* Scope 3 category and shows the two user inputs (transport type and distance) as
-* well as the resultant emissions from the calculation. 
+* Scope 3 category and shows the two user inputs (transport type and distance) 
+* as well as the resultant emissions from the calculation. 
 *
 * The total emissions from all Commuting recordings is then presented under
 * the list of recordings. 
 */
 
 export default function ({ navigation }) {
-  /*
+  /** 
   * Constant variables for this page to allow for dark mode feature,
   * the collection of commuting recordings and the current amount 
   * of emissions due to the commuting recordings. 
@@ -43,7 +56,7 @@ export default function ({ navigation }) {
   const [commutingEmissions, setCommutingEmissions] = useState([]);
   const [amountCom, setAmountCom] = useState([]);
 
-  /*
+  /**
   * Code to call and store all recordings in the 'Commuting' collection into 
   * the 'setCommutingEmissions' variable. The tranport type, distance travelled and resultant 
   * emissions are all stored. 
@@ -65,7 +78,10 @@ export default function ({ navigation }) {
                         let commutingEmissions = []
                         let emissionsCommuting = 0
                         querySnapshot.forEach((doc)=> {
-                            let {transportType, distanceTravelled, comEmissions} = doc.data()
+                            let {
+                              transportType, 
+                              distanceTravelled, 
+                              comEmissions} = doc.data()
                             commutingEmissions.push({
                                 id: doc.id,
                                 transportType,
@@ -73,14 +89,15 @@ export default function ({ navigation }) {
                                 comEmissions, 
                             });
                         setCommutingEmissions(commutingEmissions);
-                        emissionsCommuting = emissionsCommuting + parseInt(doc.data().comEmissions, 0)
+                        emissionsCommuting = emissionsCommuting 
+                        + parseInt(doc.data().comEmissions, 0)
                         setAmountCom(emissionsCommuting);
                         });
       
             })};
 
-  /*
-  * Line 98-123 represents the layout of the page, including the icon for 
+  /**
+  * Line 114-180 represents the layout of the page, including the icon for 
   * activating the dark/light mode in the top-right-hand corner and a 'return' icon
   * in the top-left-hand corner to return to the 'main' annual emissions page.
   * 
@@ -121,10 +138,8 @@ export default function ({ navigation }) {
         }}
       />
       <ScrollView>
-
       <View 
         style={{
-        
         marginTop: 30,
         marginHorizontal: '10%',
         backgroundColor: 'cornflowerblue',
@@ -146,7 +161,6 @@ export default function ({ navigation }) {
               marginLeft: 22,
               alignSelf: "center",
               marginBottom: 4,
-              
             }}
             source={require('../../assets/car2.png')}
           />
@@ -164,13 +178,42 @@ export default function ({ navigation }) {
 
     <View style={styles.container}>
       <View style = {styles.innerContainer}>
-
-    <DataTable >
-    <Text style={{alignSelf: "center", fontSize: 24, marginTop: 10, color: 'black', fontWeight:'bold', marginBottom: 5}}> 2022 Recordings</Text>
+    <DataTable>
+    <Text style={{
+      alignSelf: "center", 
+      fontSize: 24, 
+      marginTop: 10, 
+      color: 'black', 
+      fontWeight:'bold', 
+      marginBottom: 5
+      }}>2022 Recordings</Text>
       <DataTable.Header>
-        <DataTable.Title style={{ marginLeft: 2 , marginRight: 18}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Transport</DataTable.Title>
-        <DataTable.Title style={{ marginLeft: 35, marginRight: 36}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>Distance</DataTable.Title>
-        <DataTable.Title style={{ marginLeft: 2}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>kgCO2e</DataTable.Title>
+        <DataTable.Title style={{ 
+          marginLeft: 2, 
+          marginRight: 18
+          }} 
+          textStyle={{
+            fontSize: 14, 
+            color: 'black', 
+            fontWeight: 'bold'
+            }}>Transport</DataTable.Title>
+        <DataTable.Title style={{ 
+          marginLeft: 35, 
+          marginRight: 36
+          }} 
+          textStyle={{
+            fontSize: 14, 
+            color: 'black', 
+            fontWeight:'bold'
+            }}>Distance</DataTable.Title>
+        <DataTable.Title style={{ 
+          marginLeft: 2
+          }} 
+          textStyle={{
+            fontSize: 14, 
+            color: 'black',
+            fontWeight: 'bold'
+            }}>kgCO2e</DataTable.Title>
       </DataTable.Header>
       {
         commutingEmissions.map((item, key) => {
@@ -197,7 +240,7 @@ export default function ({ navigation }) {
     </Layout>
 )};
 
-/*
+/**
 * StyleSheet used for the styling of the Views in the code. 
 */ 
 const styles = StyleSheet.create({
@@ -208,11 +251,10 @@ const styles = StyleSheet.create({
       margin: 20,
       marginHorizontal: 25,
       shadowColor: '#171717',
-        shadowOffset: {width: 4, height: 4},
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
+      shadowOffset: {width: 4, height: 4},
+      shadowOpacity: 0.5,
+      shadowRadius: 5,
   },
-
   innerContainer: {
       backgroundColor: 'ivory',
       alignItems: 'center',
@@ -220,7 +262,6 @@ const styles = StyleSheet.create({
       borderRadius: 15,
       padding: 10,
       margin: 2,
-
   }, 
   container2: {
   backgroundColor: 'cornflowerblue',
@@ -229,11 +270,11 @@ const styles = StyleSheet.create({
   margin: 20,
   marginHorizontal: 25,
   shadowColor: '#171717',
-    shadowOffset: {width: 4, height: 4},
-    shadowOpacity: 0.5,
-    shadowRadius: 5,
-    marginTop: -5,
-    width: 260,
-    marginLeft: 100
+  shadowOffset: {width: 4, height: 4},
+  shadowOpacity: 0.5,
+  shadowRadius: 5,
+  marginTop: -5,
+  width: 260,
+  marginLeft: 100
   },
 });
