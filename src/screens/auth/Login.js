@@ -1,4 +1,4 @@
-// Import relevant libraries and components.
+// Import relevant modules and functions.
 import React, { useState } from "react";
 import {
   ScrollView,
@@ -16,6 +16,16 @@ import {
   useTheme,
   themeColor,
 } from "react-native-rapi-ui";
+
+/*
+* This represents the Login page that allows the user to enter
+* their email address and password in order to access the application.
+* The Register page can also be accessed by clicking the 'Register Here'
+* button, as well as the 'Forgotten Password' page by clicking the 
+* 'Forget Password' button.
+*
+* Dark mode can also be activated.
+*/
 
 export default function ({ navigation }) {
   // constant variables for this page.
@@ -42,18 +52,11 @@ export default function ({ navigation }) {
   }
 
   /*
-  * The Curoscope application is added to the top of the page.
+  * The Curoscope application logo is added to the top of the page.
   * 
-  * Text Input boxes are created, allowing the user to enter their email and password
+  * Text Input boxes are created with the relevant placeholders and 
+  * keyboard type, allowing the user to enter their email and password
   * to login to the application. 
-  * 
-  * A login button is added to then allow the user to login once relevant details
-  * are entered. 
-  * 
-  * A button to access the Registration page as well as the Forgotten Password page
-  * is also created. 
-  * 
-  * The dark mode feature is also provided on this page. 
   */
 
   return (

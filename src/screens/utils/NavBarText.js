@@ -1,4 +1,4 @@
-// Import relevant libraries and components.
+// Import relevant modules and functions.
 import React from "react";
 import { Text, themeColor, useTheme } from "react-native-rapi-ui";
 

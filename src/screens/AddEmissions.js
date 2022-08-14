@@ -1,3 +1,4 @@
+// Import relevant modules and functions.
 import React from "react";
 import { StyleSheet, View , TouchableOpacity, Image} from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
@@ -19,9 +20,25 @@ import { Alert } from "react-native-web";
 import App from "../../App";
 import { fontSize } from "react-native-rapi-ui/constants/typography";
 
-
+/*
+* This page acts as the main 'Add Emissions' page and presents 3 buttons
+* to access the 3 different Scope 3 category pages in which emissions can 
+* be calculated from. 
+* 
+* Line 39-67 represents the layout of the page, including the icon for 
+* activating the dark/light mode in the top left corner and the icon
+* for logging out in the top right hand corner. 
+*
+* Three 'TouchableOpacitys' are then created, each navigate to a different
+* Scope 3 category page, display the title of that category as well as an
+* image relating to that category. 
+*/
 
 export default function ({ navigation }) {
+  /*
+  * Constant variables for this page to allow for dark mode feature
+  * and logout button. 
+  */ 
   const { isDarkmode, setTheme } = useTheme();
   const auth = getAuth();
   return (
@@ -65,8 +82,6 @@ export default function ({ navigation }) {
             style={{
               width: 70, 
               height: 60, 
-              //borderRadius: 10,
-              //marginTop: 5,
               marginLeft: -150,
               marginTop: -20
               
@@ -92,8 +107,6 @@ export default function ({ navigation }) {
             style={{
               width: 90, 
               height: 35, 
-              //borderRadius: 10,
-              //marginTop: 5,
               marginLeft: -150,
               marginTop: -10
               
@@ -117,8 +130,6 @@ export default function ({ navigation }) {
             style={{
               width: 70, 
               height: 70, 
-              //borderRadius: 10,
-              //marginTop: 5,
               marginLeft: -170,
               marginTop: -20
               
@@ -138,6 +149,12 @@ export default function ({ navigation }) {
   </Layout>   
   );
 }
+
+/*
+* The styles for the different buttons are included 
+* in the StyleSheet below, placing them in the relevant 
+* position as well as designing them and adding a shadow offset.
+*/
 
 const styles = StyleSheet.create({
   container: {

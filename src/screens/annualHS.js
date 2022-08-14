@@ -1,3 +1,4 @@
+// Import relevant modules and functions.
 import React, { useEffect, useState, document , querySelector, getElementByID} from "react";
 import { View , FlatList, StyleSheet, Pressable, Image, ScrollView, RefreshControl} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
@@ -24,13 +25,35 @@ import { async } from "@firebase/util";
 import { DataTable } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
+/*
+* This page acts as the individual annual emissions page for the 'Hotel Stays'
+* Scope 3 category and shows the two user inputs (country and number of nights) 
+* as well as the resultant emissions from the calculation. 
+*
+* The total emissions from all Hotel Stays recordings is then presented under
+* the list of recordings. 
+*/
 
 
 export default function ({navigation}) {
-
+  /*
+  * Constant variables for this page to allow for dark mode feature,
+  * the collection of Hotel Stays recordings and the current amount 
+  * of emissions due to the Hotel Stays recordings. 
+  */ 
   const { isDarkmode, setTheme } = useTheme();
-  const [users, setUsers] = useState([]);
+  const [hotelStays, setHotelStays] = useState([]);
   const [amountHS, setAmountHS] = useState([]);
+
+  /*
+  * Code to call and store all recordings in the 'Hotel Stays' collection into 
+  * the 'setHotelStays' variable. The country, number of nights and resultant 
+  * emissions are all stored. 
+  * 
+  * The 'emissionsAmount' variable represents the calculation to count all resultant
+  * emissions from all recordings in the 'Hotel Stays' collection and is stored in the 
+  * 'setAmountHS' variable. 
+  */
 
 useEffect(() => {
 emissionsQuery(); 
@@ -41,24 +64,37 @@ emissionsQuery();
       
       emissionsRef.onSnapshot(
               querySnapshot => {
-                  let users = []
+                  let hotelStays = []
                   let emissionsAmount = 0 
                   querySnapshot.forEach((doc)=> {
                       let {countryName, emissions, noOfNights} = doc.data()
-                      users.push({
+                      hotelStays.push({
                           id: doc.id,
                           countryName,
                           emissions,
                           noOfNights, 
                       });
-                  setUsers(users);
+                  setHotelStays(hotelStays);
                   emissionsAmount = emissionsAmount + parseInt(doc.data().emissions, 0)
                   setAmountHS(emissionsAmount.toFixed(2));
                   });
 
       })};
 
-
+ /*
+  * Line 99-126 represents the layout of the page, including the icon for 
+  * activating the dark/light mode in the top-right-hand corner and a 'return' icon
+  * in the top-left-hand corner to return to the 'main' annual emissions page.
+  * 
+  * The 'Hotel Stays' heading is added, with an image representing the title. 
+  * 
+  * A Data Table is then created, holding the country user input in the 
+  * first cell, the number of nights user input in the second cell and the resultant 
+  * emissions in the third.
+  * 
+  * A View holding the current total of resultant emissions is then added underneath
+  * the DataTable. 
+  */
 
 return (
     <Layout>
@@ -110,8 +146,6 @@ return (
             style={{
               width: 60, 
               height: 50, 
-              //borderRadius: 10,
-              //marginTop: 5,
               marginLeft: 25,
               alignSelf: "center",
               marginBottom: 5,
@@ -131,11 +165,8 @@ return (
         </Text>
     </View>
 
-  
-
     <View style={styles.container}>
       <View style = {styles.innerContainer}>
-
     <DataTable >
     <Text style={{alignSelf: "center", fontSize: 24, marginTop: 10, color: 'black',  fontWeight:'bold', marginBottom: 5}}> 2022 Recordings</Text>
       <DataTable.Header>
@@ -144,20 +175,18 @@ return (
         <DataTable.Title style={{ marginLeft: 20}} textStyle={{fontSize:14, color: 'black', fontWeight:'bold'}}>kgCO2e</DataTable.Title>
       </DataTable.Header>
       {
-        users.map((item, key) => {
+        hotelStays.map((item, key) => {
           return (
             <DataTable.Row 
               key={item.id}>
               <DataTable.Cell style={{  marginLeft: 6 }}>{item.countryName}</DataTable.Cell>
               <DataTable.Cell style={{  marginLeft: 50 }}>{item.noOfNights}</DataTable.Cell>
               <DataTable.Cell style={{  marginLeft: 5 }}>{item.emissions}</DataTable.Cell>
-              
               </DataTable.Row>
           )})}
       </DataTable>
     </View>
     </View>
-
     <View style={styles.container2}>
       <View style={styles.innerContainer}>
       <Text style={{
@@ -167,12 +196,13 @@ return (
       </View>
     </View>
     </ScrollView>
-    
-
     </Layout>
 
 )};
 
+/*
+* StyleSheet used for the styling of the Views in the code. 
+*/ 
 
 const styles = StyleSheet.create({
   container: {
@@ -196,20 +226,7 @@ const styles = StyleSheet.create({
       margin: 2,
 
   },
-
-  itemHeading: {
-      fontWeight: 'bold',
-  },
-
-  itemText: {
-      fontWeight:'300',
-  },
-
-  row: {
-    flex: 1,
-    justifyContent: "space-around"
-},
-container2: {
+  container2: {
   backgroundColor: 'steelblue',
   padding: 5,
   borderRadius: 15,
@@ -222,6 +239,6 @@ container2: {
     marginTop: -5,
     width: 260,
     marginLeft: 100
-},
+  },
 })
 

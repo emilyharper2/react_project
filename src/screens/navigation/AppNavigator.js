@@ -1,4 +1,4 @@
-// Import relevant libraries and components.
+// Import relevant modules and functions.
 import React, { useContext } from "react";
 import { initializeApp, getApps } from "firebase/app";
 import { NavigationContainer } from "@react-navigation/native";
@@ -16,15 +16,17 @@ import NavBarText from "../utils/NavBarText";
 
 // Main
 import Home from "../Home";
-import SecondScreen from "../SecondScreen";
 import Profile from "../Profile";
-import HotelStays from "../HotelStays";
 import Information from "../Information";
-import SettingsScreen from "../SettingsScreen";
 import AnnualEmissions from "../AnnualEmissions";
 import AddEmissions from "../AddEmissions";
+
+// Add Stack Screens 
+import HotelStays from "../HotelStays";
 import Commuting from "../Commuting";
 import BusinessTravel from "../BusinessTravel";
+
+// Annual Stack Screens 
 import annualHS from "../annualHS";
 import annualCommuting from "../annualCommuting";
 import annualBT from "../annualBT";
@@ -35,20 +37,6 @@ import Register from "../auth/Register";
 import ForgetPassword from "../auth/ForgetPassword";
 import Loading from "../utils/Loading";
 
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA_uODZYc72M_o3rNxCZiSrRXoIZQ2U1Os",
-  authDomain: "react-app-s3ce.firebaseapp.com",
-  projectId: "react-app-s3ce",
-  storageBucket: "react-app-s3ce.appspot.com",
-  messagingSenderId: "354675499105",
-  appId: "1:354675499105:web:4bd3ce22706c692a698a20",
-  measurementId: "G-L3KFYWS5D6"
-};
-
-if (getApps().length === 0) {
-  initializeApp(firebaseConfig);
-}
 
 // Creating the AuthStack for the application.
 const AuthStack = createNativeStackNavigator();
@@ -82,7 +70,6 @@ const Main = () => {
       }}
     >
       <MainStack.Screen name="MainTabs" component={MainTabs} />
-      <MainStack.Screen name="SecondScreen" component={SecondScreen} />
     </MainStack.Navigator>
   );
 };

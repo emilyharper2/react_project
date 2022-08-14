@@ -1,4 +1,4 @@
-// Import relevant libraries and components.
+// Import relevant modules and functions.
 import React, { useState } from "react";
 import {
   ScrollView,
@@ -17,6 +17,14 @@ import {
   themeColor,
 } from "react-native-rapi-ui";
 
+/*
+* This represents the Forgotten Password page that allows the user to enter
+* their email address and a reset password link will be emailed to them.
+* The Login page can be also be accessed by clicking on the 'Login here'
+* button if the user already has an account. 
+*
+* Dark mode can also be activated.
+*/
 
 export default function ({ navigation }) {
   // constant variables for this page.

@@ -1,3 +1,4 @@
+// Import relevant modules and functions.
 import {React,  useEffect, useState} from "react";
 import { View , FlatList, StyleSheet, Pressable, Image, ScrollView, RefreshControl} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
@@ -23,10 +24,34 @@ import {firebase} from "../firebase/FirebaseConfig";
 import { async } from "@firebase/util";
 import { DataTable } from "react-native-paper";
 
+/*
+* This page acts as the individual annual emissions page for the 'Commuting'
+* Scope 3 category and shows the two user inputs (transport type and distance) as
+* well as the resultant emissions from the calculation. 
+*
+* The total emissions from all Commuting recordings is then presented under
+* the list of recordings. 
+*/
+
 export default function ({ navigation }) {
+  /*
+  * Constant variables for this page to allow for dark mode feature,
+  * the collection of commuting recordings and the current amount 
+  * of emissions due to the commuting recordings. 
+  */ 
   const { isDarkmode, setTheme } = useTheme();
   const [commutingEmissions, setCommutingEmissions] = useState([]);
   const [amountCom, setAmountCom] = useState([]);
+
+  /*
+  * Code to call and store all recordings in the 'Commuting' collection into 
+  * the 'setCommutingEmissions' variable. The tranport type, distance travelled and resultant 
+  * emissions are all stored. 
+  * 
+  * The 'emissionsCommuting' variable represents the calculation to count all resultant
+  * emissions from all recordings in the 'Commuting' collection and is stored in the 
+  * 'setAmountCom' variable. 
+  */
 
   useEffect(() => {
     commutingQuery(); 
@@ -53,6 +78,21 @@ export default function ({ navigation }) {
                         });
       
             })};
+
+  /*
+  * Line 98-123 represents the layout of the page, including the icon for 
+  * activating the dark/light mode in the top-right-hand corner and a 'return' icon
+  * in the top-left-hand corner to return to the 'main' annual emissions page.
+  * 
+  * The 'Commuting' heading is added, with an image representing the title. 
+  * 
+  * A Data Table is then created, holding the transport mode user input in the 
+  * first cell, the distance user input in the second cell and the resultant 
+  * emissions in the third.
+  * 
+  * A View holding the current total of resultant emissions is then added underneath
+  * the DataTable. 
+  */
 
   return (
     <Layout>
@@ -103,8 +143,6 @@ export default function ({ navigation }) {
             style={{
               width: 75, 
               height: 30, 
-              //borderRadius: 10,
-              //marginTop: 5,
               marginLeft: 22,
               alignSelf: "center",
               marginBottom: 4,
@@ -124,8 +162,6 @@ export default function ({ navigation }) {
         </Text>
     </View>
 
-  
-
     <View style={styles.container}>
       <View style = {styles.innerContainer}>
 
@@ -141,15 +177,14 @@ export default function ({ navigation }) {
           return (
             <DataTable.Row 
               key={item.id}>
-              <DataTable.Cell style={{  }}>{item.transportType}</DataTable.Cell>
-              <DataTable.Cell style={{ }}>           {item.distanceTravelled} km </DataTable.Cell>
-              <DataTable.Cell style={{  }}>           {item.comEmissions}</DataTable.Cell>
+              <DataTable.Cell>{item.transportType}</DataTable.Cell>
+              <DataTable.Cell>           {item.distanceTravelled} km </DataTable.Cell>
+              <DataTable.Cell>           {item.comEmissions}</DataTable.Cell>
               </DataTable.Row>
           )})}
       </DataTable>
     </View>
     </View>
-
     <View style={styles.container2}>
       <View style={styles.innerContainer}>
       <Text style={{
@@ -158,15 +193,13 @@ export default function ({ navigation }) {
       }}>Current Total:   {amountCom} kgCO2e</Text>
       </View>
     </View>
-
     </ScrollView>
-    
-
     </Layout>
-
 )};
 
-
+/*
+* StyleSheet used for the styling of the Views in the code. 
+*/ 
 const styles = StyleSheet.create({
   container: {
       backgroundColor: 'cornflowerblue',
@@ -188,21 +221,8 @@ const styles = StyleSheet.create({
       padding: 10,
       margin: 2,
 
-  },
-
-  itemHeading: {
-      fontWeight: 'bold',
-  },
-
-  itemText: {
-      fontWeight:'300',
-  },
-
-  row: {
-    flex: 1,
-    justifyContent: "space-around"
-}, 
-container2: {
+  }, 
+  container2: {
   backgroundColor: 'cornflowerblue',
   padding: 5,
   borderRadius: 15,
@@ -215,5 +235,5 @@ container2: {
     marginTop: -5,
     width: 260,
     marginLeft: 100
-},
+  },
 });

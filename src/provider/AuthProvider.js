@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-// v9 compat packages are API compatible with v8 code
+// Import relevant modules and functions.
+// v9 compat packages are API compatible with v8 code.
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';

@@ -1,5 +1,16 @@
 import React, { useState,  useEffect, useRef, Component  }  from "react";
-import { View, SafeAreaView, StatusBar, Dimensions, StyleSheet, ScrollView, Image, TextInput, Picker, Alert} from "react-native";
+import { 
+  View, 
+  SafeAreaView, 
+  StatusBar, 
+  Dimensions, 
+  StyleSheet, 
+  ScrollView, 
+  Image, 
+  TextInput, 
+  Picker, 
+  Alert} from "react-native";
+const {width} = Dimensions.get('window');
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import SelectDropdown from 'react-native-select-dropdown'
 import {
@@ -290,14 +301,6 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 10,
   },
-  //header: {
-  //  flexDirection: 'row',
-  //  width,
-  //  height: 50,
-  //  alignItems: 'center',
-   // justifyContent: 'center',
-   // backgroundColor: '#F6F6F6',
-  //},
   headerTitle: {color: '#000', fontWeight: 'bold', fontSize: 16},
   saveAreaViewContainer: {flex: 1, backgroundColor: '#FFF'},
   viewContainer: {flex: 1, width, backgroundColor: '#FFF'},
@@ -308,7 +311,6 @@ const styles = StyleSheet.create({
     paddingVertical: '10%',
   },
   dropdownsRow: {flexDirection: 'row', width: '90%', paddingHorizontal: '5%', marginTop: 40, marginLeft: 22},
-
   dropdown1BtnStyle: {
     flex: 1,
     height: 50,
