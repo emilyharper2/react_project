@@ -8,7 +8,16 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { initializeApp } from "firebase/app";
 import { getAnalytics, logEvent, isSupported} from "firebase/analytics";
-import { getFirestore, collection, query, where, addDoc, getDocs, doc, setDoc} from "firebase/firestore";
+import { 
+  getFirestore, 
+  collection, 
+  query, 
+  where, 
+  addDoc, 
+  getDocs, 
+  doc, 
+  setDoc
+} from "firebase/firestore";
 
 
 const AuthContext = createContext();
