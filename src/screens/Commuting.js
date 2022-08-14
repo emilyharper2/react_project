@@ -1,5 +1,17 @@
+// Import relevant modules and functions.
 import React, { useState, useEffect, useRef, Component }  from "react";
-import { View, Image, TextInput, SafeAreaView, StatusBar, Dimensions, StyleSheet, ScrollView, TouchableHighlight, Alert} from "react-native";
+import { 
+  View, 
+  Image, 
+  TextInput, 
+  SafeAreaView, 
+  StatusBar, 
+  Dimensions, 
+  StyleSheet, 
+  ScrollView, 
+  TouchableHighlight, 
+  Alert
+} from "react-native";
 import {
   Layout,
   TopNav,
@@ -16,8 +28,26 @@ import { fontSize } from "react-native-rapi-ui/constants/typography";
 import {addDoc, collection, doc, setDoc} from "firebase/firestore";
 import { db } from "../firebase/config";
 
+/*
+* This page acts as the individual add emissions page for the 'Commuting'
+* Scope 3 category and displays a dropdown menu allowing the user to select
+* a mode of transport and an input box allowing the user to input the distance
+* travelled. 
+*
+* The calculated emissions are then displayed on the cloud image below the 
+* input box and these can be added to the database by clicking the 
+* 'Add Emissions' button.
+*/
 
 export default function ({ navigation }) {
+  /*
+  * Constant variable for this page to allow for dark mode feature.
+  *
+  * As well as this, constant variable to store the distance travelled,
+  * the list of transport modes to select from, the transport mode selected, 
+  * the corresponding conversion factor, the calculated value and setting this
+  * value as the resulting emissions. 
+  */ 
   const { isDarkmode, setTheme } = useTheme();
   const [number, setNumber] = useState("");
   const [transportModes, setTransportModes] = useState([]);
@@ -26,6 +56,14 @@ export default function ({ navigation }) {
   const [result, setResult] = useState([]);
   const calculation = (number * factor).toFixed(3)
   const [comEmissions, setComEmissions] = useState("");
+
+  /*
+  * Creating the 'Commuting' collection and storing the transport type
+  * selected, the distance travelled inputted value and the resultant emissions
+  * from the calculation.
+  * 
+  * The user is then alerted once the action has completed successfully.
+  */
 
   function create() {
     addDoc(collection(db,"Commuting"), {
@@ -41,6 +79,12 @@ export default function ({ navigation }) {
     });;
     alert('Emissions Added!');
   }
+
+  /*
+  * Listing the transport types for the dropdown menu along with their
+  * corresponding conversion factors that will be multiplied by the distance
+  * travelled number. 
+  */ 
 
   useEffect(() => {
     setTimeout(() => {
@@ -71,10 +115,23 @@ export default function ({ navigation }) {
     }, 1000);
   });
 
+  /*
+  * Line 132-199 represents the layout of the page, including the icon for 
+  * activating the dark/light mode in the top-right-hand corner and a 'return' icon
+  * in the top-left-hand corner to return to the 'main' add emissions page.
+  * 
+  * The 'Commuting' heading is added, with an image representing the title. 
+  * 
+  * The dropdown menu is then created, storing the selected value. An input box is added
+  * to allow the user to enter a number of kilometers. The cloud image is added and 
+  * calculated emissions are displayed on top of it. 
+  * 
+  * The 'Add Emissions' button is created, activating the 'create' function once pressed. 
+  */
+
   return (
     <Layout>
       <TopNav
-        //middleContent="Commuting"
         leftContent={
           <Ionicons
             name="chevron-back"
@@ -100,7 +157,6 @@ export default function ({ navigation }) {
       />
       <View 
         style={{
-        
         marginTop: 30,
         marginHorizontal: '12%',
         backgroundColor: 'cornflowerblue',
@@ -120,8 +176,6 @@ export default function ({ navigation }) {
               resizeMode: "contain",
               width: 80, 
               height: 75, 
-              //borderRadius: 10,
-              //marginTop: 5,
               marginLeft: 25,
               alignSelf: "center",
               
@@ -141,8 +195,10 @@ export default function ({ navigation }) {
     </View>
     <View style={styles.dropdownsRow}>
   <SelectDropdown
+    // inserting the tranport modes as the dropdown data.
 	  data={transportModes}
 	  onSelect={(selectedItem, index) => {
+      // Setting the selected transport type name and corresponding factor.
 		  console.log(selectedItem, index);
       setFactor([]);
       setTransport([]);
@@ -151,13 +207,11 @@ export default function ({ navigation }) {
 	  }}
     defaultButtonText = {'Select Mode of Transport'}
 	  buttonTextAfterSelection={(selectedItem, index) => {
-		// text represented after item is selected
-		// if data array is an array of objects then return selectedItem.property to render after item is selected
+		// text represented after item is selected.
 		  return selectedItem.name
 	  }}
 	  rowTextForSelection={(item, index) => {
-		// text represented for each item in dropdown
-		// if data array is an array of objects then return item.property to represent item in dropdown
+		// text represented for each item in dropdown.
 	  	return item.name
 	  }}
     buttonStyle ={styles.dropdown1BtnStyle}
@@ -193,12 +247,13 @@ export default function ({ navigation }) {
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-        //marginBottom:340,
         marginLeft:260,
         fontSize: 18,
         textShadowColor: '#444'
       }} 
+      // Maximum length of 4 integers added in the text input box.
       maxLength = {4}
+      // Setting entered number as distance which will be used in calculation.
       onChangeText ={(distance) => setNumber(distance)} />
   </View>
 
@@ -209,11 +264,9 @@ export default function ({ navigation }) {
             style={{    
               width: 280, 
               height: 280, 
-              //marginLeft: 25,
               alignSelf: "center",
               marginBottom: 70,
               marginTop: 10
-              
             }}
             source={require('../../assets/thecloud.png')}
           />
@@ -221,8 +274,7 @@ export default function ({ navigation }) {
   <View>
   <Text style={{
     marginLeft: 122,
-    //marginBottom: 200,
-    //themeColor : isDarkmode ? themeColor.white100 : themeColor.dark,
+    color: 'black',
     fontSize: 26, 
     marginTop: -215
   }}>{calculation} kgCO2e </Text>
@@ -243,12 +295,14 @@ export default function ({ navigation }) {
     fontSize: 18
   }}
   color = "mediumseagreen"
+  // Calling the 'create' function once the 'Add Emissions' button is pressed.
   onPress={create}/>
 
   </Layout>
   );
 }
 
+// StyleSheet used for the styling the code. 
 const styles = StyleSheet.create({
   shadow: {
     shadowColor: '#000',
@@ -267,7 +321,6 @@ const styles = StyleSheet.create({
     paddingVertical: '10%',
   },
   dropdownsRow: {flexDirection: 'row', width: '90%', paddingHorizontal: '5%', marginTop: 40, marginLeft: 22},
-
   dropdown1BtnStyle: {
     flex: 1,
     height: 50,
@@ -281,31 +334,5 @@ const styles = StyleSheet.create({
   dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
   dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
   divider: {width: 12},
-  dropdown2BtnStyle: {
-    flex: 1,
-    height: 50,
-    backgroundColor: '#FFF',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#444',
-  },
-  dropdown2BtnTxtStyle: {color: '#444', textAlign: 'left'},
-  dropdown2DropdownStyle: {backgroundColor: '#EFEFEF'},
-  dropdown2RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
-  dropdown2RowTxtStyle: {color: '#444', textAlign: 'left'},
-  roundButton2: {
-    marginTop: 20,
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 100,
-    backgroundColor: '#ccc',
-    shadowColor: '#303838',
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 10,
-    shadowOpacity: 0.35
-  },
 });
 

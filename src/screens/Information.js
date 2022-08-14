@@ -1,3 +1,4 @@
+// Import relevant modules and functions.
 import React from "react";
 import { View, ScrollView, StyleSheet, Text, Image} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
@@ -12,9 +13,30 @@ import {
 } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
 
+/** 
+ * This page represents the Information page for the application. 
+*/
+ 
 export default function ({ navigation }) {
+  /** 
+  * Constant variables for this page to allow for dark mode feature
+  * and logout button. 
+  */
   const { isDarkmode, setTheme } = useTheme();
   const auth = getAuth();
+
+  /**
+  * Line 41-87 represents the layout of the page, including the icon for 
+  * activating the dark/light mode in the top left corner and the icon
+  * for logging out in the top right hand corner.
+  *
+  * The 'Curoscope' logo is added at the top of the page as well as the title
+  * 'Curoscope FAQs' 
+  *
+  * After the design, a list of questions related to Scope 3 carbon emissions
+  * along with the answersa are added. 
+  */ 
+
   return (
     <Layout>
       <TopNav

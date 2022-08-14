@@ -1,3 +1,4 @@
+// Import relevant modules and functions.
 import React, { useState,  useEffect, useRef, Component  }  from "react";
 import { 
   View, 
@@ -30,8 +31,26 @@ import { useNavigation } from '@react-navigation/native';
 import {addDoc, collection, doc, setDoc} from "firebase/firestore";
 import { db } from "../firebase/config";
 
+/*
+* This page acts as the individual add emissions page for the 'Hotel Stays'
+* Scope 3 category and displays a dropdown menu allowing the user to select
+* a country and an input box allowing the user to input the number of nights
+* stayed. 
+*
+* The calculated emissions are then displayed on the cloud image below the 
+* input box and these can be added to the database by clicking the 
+* 'Add Emissions' button.
+*/
 
 export default function HotelScreen({ navigation }) {
+  /*
+  * Constant variable for this page to allow for dark mode feature.
+  *
+  * As well as this, constant variable to store number of nights,
+  * the list of countries to select from, the country selected, 
+  * the corresponding conversion factor, the calculated value and setting this
+  * value as the resulting emissions. 
+  */ 
   const { isDarkmode, setTheme } = useTheme();
   const [number, setNumber] = useState("");
   const [countries, setCountries] = useState([]);
@@ -40,6 +59,14 @@ export default function HotelScreen({ navigation }) {
   const [result, setResult] = useState([]);
   const calculation = (number * factor).toFixed(3);
   const [emissions, setEmissions] = useState("");
+
+  /*
+  * Creating the 'Hotel Stays' collection and storing the country
+  * selected, the number of nights inputted and the resultant emissions
+  * from the calculation.
+  * 
+  * The user is then alerted once the action has completed successfully.
+  */
 
   function create() {
     addDoc(collection(db,"Hotel Stays"), {
@@ -55,6 +82,12 @@ export default function HotelScreen({ navigation }) {
     });;
     alert('Emissions Added!');
   }
+
+  /*
+  * Listing the countries for the dropdown menu along with their
+  * corresponding conversion factors that will be multiplied by the number
+  * of nights stayed.
+  */ 
 
   useEffect(() => {
     setTimeout(() => {
@@ -115,10 +148,23 @@ export default function HotelScreen({ navigation }) {
     }, 1000);
   });
 
+  /*
+  * Line 165-231 represents the layout of the page, including the icon for 
+  * activating the dark/light mode in the top-right-hand corner and a 'return' icon
+  * in the top-left-hand corner to return to the 'main' add emissions page.
+  * 
+  * The 'Hotel Stays' heading is added, with an image representing the title. 
+  * 
+  * The dropdown menu is then created, storing the selected value. An input box is added
+  * to allow the user to enter a number of nights. The cloud image is added and 
+  * calculated emissions are displayed on top of it. 
+  * 
+  * The 'Add Emissions' button is created, activating the 'create' function once pressed. 
+  */
+
   return (
     <Layout>
       <TopNav
-        //middleContent="Hotel Stays"
         leftContent={
           <Ionicons
             name="chevron-back"
@@ -144,7 +190,6 @@ export default function HotelScreen({ navigation }) {
       />
       <View 
         style={{
-        
         marginTop: 30,
         marginHorizontal: '12%',
         backgroundColor: 'steelblue',
@@ -163,8 +208,6 @@ export default function HotelScreen({ navigation }) {
             style={{
               width: 60, 
               height: 50, 
-              //borderRadius: 10,
-              //marginTop: 5,
               marginLeft: 25,
               alignSelf: "center",
               marginBottom: 5,
@@ -186,9 +229,11 @@ export default function HotelScreen({ navigation }) {
   <View style={styles.dropdownsRow}>
   <SelectDropdown
     marginLeft = '20px'
+    // inserting the countries as the dropdown data.
 	  data={countries}
 	  onSelect={(selectedItem, index) => {
 		  console.log(selectedItem, index);
+      // Setting the selected country name and corresponding factor.
       setFactor([]);
       setCountry([]);
       setFactor(selectedItem.factor);
@@ -196,9 +241,11 @@ export default function HotelScreen({ navigation }) {
 	  }}
     defaultButtonText = {'Select country'}
 	  buttonTextAfterSelection={(selectedItem, index) => {
+      // text represented after item is selected.
 		  return selectedItem.name 
 	  }}
 	  rowTextForSelection={(item, index) => {
+      // text represented for each item in dropdown.
         return item.name
       }}
       buttonStyle ={styles.dropdown1BtnStyle}
@@ -234,12 +281,13 @@ export default function HotelScreen({ navigation }) {
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-        //marginBottom:340,
         marginLeft:260,
         fontSize: 18,
         textShadowColor: '#444'
       }} 
+      // Maximum length of 4 integers added in the text input box.
       maxLength = {4}
+      // Setting entered number of nights which will be used in calculation.
       onChangeText ={(nights) => setNumber(nights)} />
   </View>
 
@@ -250,11 +298,9 @@ export default function HotelScreen({ navigation }) {
             style={{    
               width: 280, 
               height: 280, 
-              //marginLeft: 25,
               alignSelf: "center",
               marginBottom: 70,
               marginTop: 10
-              
             }}
             source={require('../../assets/thecloud.png')}
           />
@@ -263,8 +309,7 @@ export default function HotelScreen({ navigation }) {
   <View>
   <Text style={{
     marginLeft: 122,
-    //marginBottom: 200,
-    //themeColor : isDarkmode ? themeColor.white100 : themeColor.dark,
+    color: 'black',
     fontSize: 26,
     marginTop: -215,
   }}>{calculation} kgCO2e </Text>
@@ -285,14 +330,13 @@ export default function HotelScreen({ navigation }) {
     fontSize: 18
   }}
   color = "mediumseagreen"
+  // Calling the 'create' function once the 'Add Emissions' button is pressed.
   onPress={create}/>
-
-
-
   </Layout>
   );
 }
 
+// StyleSheet used for the styling the code.
 const styles = StyleSheet.create({
   shadow: {
     shadowColor: '#000',
@@ -323,32 +367,6 @@ const styles = StyleSheet.create({
   dropdown1DropdownStyle: {backgroundColor: '#EFEFEF'},
   dropdown1RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
   dropdown1RowTxtStyle: {color: '#444', textAlign: 'left'},
-  divider: {width: 12},
-  dropdown2BtnStyle: {
-    flex: 1,
-    height: 50,
-    backgroundColor: '#FFF',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#444',
-  },
-  dropdown2BtnTxtStyle: {color: '#444', textAlign: 'left'},
-  dropdown2DropdownStyle: {backgroundColor: '#EFEFEF'},
-  dropdown2RowStyle: {backgroundColor: '#EFEFEF', borderBottomColor: '#C5C5C5'},
-  dropdown2RowTxtStyle: {color: '#444', textAlign: 'left'},
-  roundButton2: {
-    marginTop: 20,
-    width: 50,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 100,
-    backgroundColor: '#ccc',
-    shadowColor: '#303838',
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 10,
-    shadowOpacity: 0.35
-  },
+  divider: {width: 12}
 });
 

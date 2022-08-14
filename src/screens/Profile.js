@@ -1,3 +1,4 @@
+// Import relevant modules and functions.
 import {React, useState, useEffect} from "react";
 import { View, Linking, StyleSheet, FlatList, ScrollView, Pressable, Image } from "react-native";
 import { getAuth, signOut } from "firebase/auth";
@@ -34,14 +35,34 @@ import {
   PieChart
 } from 'react-native-chart-kit'
 
-
+/**
+* This page represents the Profile page of the application. Any emissions that are recorded
+* are displayed on this page in an analytical graph, accessing the collections in the 
+* database for each of the Scope 3 categories. 
+*
+* The two graphs created include a pie chart displaying the percentage of emissions that 
+* each category is responsible for and a bar chart showing the number of recordings for 
+* each category. 
+*/
 
 export default function ({ route, navigation }) {
+  /** 
+  * Constant variables for this page to allow for dark mode feature
+  * and logout button. 
+  * 
+  * As well as this, the users username is called and displayed at the top 
+  * the page.
+  */ 
   const { isDarkmode, setTheme } = useTheme();
   const auth = getAuth();
   const user = firebase.auth().currentUser;
-  
-  
+  /**
+  * Constant variables to hold all recordings from 
+  * the Hotel Stays, Commuting and Business Travel categories.
+  * Constant variables to also hold the total amount of emissions
+  * from all recordings of a specific cateogry as well as the number
+  * of documents in each Scope 3 collection in the database.
+  */
   const [hsEmissions, setHsEmissions] = useState([]);
   const [commutingEmissions, setCommutingEmissions] = useState([]);
   const [btEmissions, setBtEmissions] = useState([]);
@@ -52,6 +73,13 @@ export default function ({ route, navigation }) {
   const [docsCom, setDocsCom] = useState([]);
   const [docsBT, setDocsBT] = useState([]);
 
+  /**
+  * Code to call and store all recordings in the 'Hotel Stays' collection into 
+  * the 'setHsEmissions' variable. The country, number of nights and resultant 
+  * emissions are all stored. The 'emissionsAmount' variable holds the calculation
+  * to add all resultant emissions in the collection and the 'count' variable finds 
+  * the length of the collection. This is then stored in the 'setDocsHS' variable. 
+  */
 
   useEffect(() => {
   hsEmissionsQuery(); 
@@ -83,6 +111,13 @@ export default function ({ route, navigation }) {
   
                 })};
 
+/*
+  * Code to call and store all recordings in the 'Commuting' collection into 
+  * the 'setCommutingEmissions' variable. The tranport type, distance travelled and 
+  * resultant emissions are all stored. The 'emissionsCommuting' variable displays the 
+  * calculation to add all resultant emissions in the collection and the 'count2' variable finds 
+  * the length of the collection. This is then stored in the 'setDocsCom' variable. 
+  */
 
 useEffect(() => {
 commutingQuery(); 
@@ -113,6 +148,14 @@ commutingQuery();
   
         })};
 
+/**
+  * Code to call and store all recordings in the 'Business Travel' collection into 
+  * the 'setBtEmissions' variable. The tranport type, distance travelled and resultant 
+  * emissions are all stored. The 'emissionsTravel' variable displays the 
+  * calculation to add all resultant emissions in the collection and the 'count3' variable finds 
+  * the length of the collection. This is then stored in the 'setDocsBT' variable. 
+  */
+
  useEffect(() => {
  btEmissionsQuery(); 
  }, []);
@@ -141,7 +184,10 @@ commutingQuery();
                             });
                 })};
 
-2
+/**
+ * The data is then added to the bar and pie chart functions, designing
+ * graphs accordingly. 
+ */
 const barData = {
   labels: ['Hotel Stays', 'Commuting', 'Business Travel'],
    datasets: [
@@ -175,6 +221,17 @@ const barData = {
         legendFontColor: isDarkmode === true ? 'white' : 'black',
       },
     ]
+  
+  /**
+  * Line 237-288 represents the layout of the page, including the icon for 
+  * activating the dark/light mode in the top left corner and the icon
+  * for logging out in the top right hand corner.
+  *
+  * The 'Curoscope' logo is added at the top of the page as well as the title
+  * 'Welcome to Curoscope' 
+  *
+  * The users username is then displayed underneath this. 
+  */ 
   
   return (
     <Layout>
@@ -238,6 +295,7 @@ const barData = {
       }}>
         <Text style={{
         textAlign: 'center', fontSize: 20, marginTop: 8
+        // Adding the title to the pie chart as well as designing appropriately.
       }}>% of Emissions (kgCO2e)</Text>
       <PieChart style={{
         marginTop: 15
@@ -271,6 +329,7 @@ const barData = {
     }}>
       <Text style={{
         textAlign: 'center', fontSize: 20, marginTop: 8
+        // Adding the title to the bar chart as well as designing appropriately.
       }}>Number of Recordings</Text>
     <BarChart style={{
       marginTop: 30

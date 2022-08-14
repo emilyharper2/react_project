@@ -18,6 +18,11 @@ mockFirebase({
   },
 });
 
+/**
+ * Testing the calling of the HotelStays collection from the 
+ * mockFirebase
+ */
+
 test('mock test - Hotel Stays' () => {
     const firebase = require('firebase');
     const db = firebase.firestore();
@@ -30,6 +35,11 @@ test('mock test - Hotel Stays' () => {
     });
 });
 
+/**
+ * Testing the calling of the Commuting collection from the 
+ * mockFirebase
+ */
+
 test('mock test - Commuting' () => {
     const firebase = require('firebase');
     const db = firebase.firestore();
@@ -41,6 +51,11 @@ test('mock test - Commuting' () => {
         expect(mockCollection).toHaveBeenCalledWith('Commuting')
     });
 });
+
+/**
+ * Testing the calling of the BusinessTravel collection from the 
+ * mockFirebase
+ */
 
 test('mock test - Business Travel' () => {
     const firebase = require('firebase');

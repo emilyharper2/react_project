@@ -1,3 +1,4 @@
+// Import relevant modules and functions.
 import { React, useState, useEffect} from "react";
 import { View, Linking, StyleSheet, FlatList, ScrollView, Pressable, Image} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
@@ -29,19 +30,34 @@ import {firebase} from "../firebase/FirebaseConfig";
 import { async } from "@firebase/util";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-
-
+/**
+* This page represents the Homepage of the application. Any emissions that are recorded
+* are displayed on this page, accessing the collections in the database for each of the 
+* Scope 3 categories. 
+*
+* The recordings are presented as a post and display the two user inputs, the resultant 
+* emissions and the category name within the post. 
+*/
 
 export default function ({ route, navigation }) {
+  /** 
+  * Constant variables for this page to allow for dark mode feature
+  * and logout button. 
+  * 
+  * As well as this, constant variables to hold all recordings from 
+  * the Hotel Stays, Commuting and Business Travel categories.
+  */ 
   const { isDarkmode, setTheme } = useTheme();
   const auth = getAuth();
-  const [liked, setLiked] = useState(false);
-  const [liked2, setLiked2] = useState(false);
-  const [liked3, setLiked3]= useState(false);
-  
   const [hsEmissions, setHsEmissions] = useState([]);
   const [commutingEmissions, setCommutingEmissions] = useState([]);
   const [btEmissions, setBtEmissions] = useState([]);
+
+ /*
+  * Code to call and store all recordings in the 'Hotel Stays' collection into 
+  * the 'setHsEmissions' variable. The country, number of nights and resultant 
+  * emissions are all stored. 
+  */
 
   useEffect(() => {
   hsEmissionsQuery(); 
@@ -66,6 +82,11 @@ export default function ({ route, navigation }) {
   
         })};
 
+ /*
+  * Code to call and store all recordings in the 'Commuting' collection into 
+  * the 'setCommutingEmissions' variable. The tranport type, distance travelled and 
+  * resultant emissions are all stored. 
+  */
 
 useEffect(() => {
 commutingQuery(); 
@@ -91,6 +112,12 @@ commutingQuery();
   
         })};
 
+/*
+  * Code to call and store all recordings in the 'Business Travel' collection into 
+  * the 'setBtEmissions' variable. The tranport type, distance travelled and resultant 
+  * emissions are all stored. 
+  */
+
  useEffect(() => {
  btEmissionsQuery(); 
  }, []);
@@ -113,8 +140,17 @@ commutingQuery();
                             });
           
                 })};
-
-
+/*
+* Line 148-202 represents the layout of the page, including the icon for 
+* activating the dark/light mode in the top left corner and the icon
+* for logging out in the top right hand corner.
+*
+* The 'Curoscope' logo is added at the top of the page as well as the title
+* 'Latest Emission Recordings' 
+*
+* After the design, each category recording variable is mapped to a view and 
+* designed accordingly. 
+*/ 
 
   return (
     <Layout>
@@ -234,30 +270,27 @@ commutingQuery();
     </Layout>
 
   )};
+
+// Style sheet for designing code on this page.   
 const styles = StyleSheet.create({
   textStyle: {
     textAlign: 'center',
     fontSize: 16,
-    marginVertical: 10,
+    marginVertical: 10
   },
-
   container: {
     backgroundColor: 'steelblue',
     padding: 15,
     borderRadius: 15,
     margin: 5,
-    marginHorizontal: 10,
+    marginHorizontal: 10
 },
-
 innerContainer: {
-    alignItems: 'center',
-
+    alignItems: 'center'
 },
-
 itemHeading: {
     fontWeight: 'bold',
 },
-
 itemText: {
     fontWeight:'300',
 }
